@@ -22,8 +22,10 @@ from linebot.v3.webhooks import (
     TextMessageContent
 )
 from langchain.chat_models import ChatOpenAI
-from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferWindowMemory
+from langchain.agents import ZeroShotAgent, Tool, AgentExecutor, load_tools
+from langchain import LLMChain
+
 
 app = Flask(__name__)
 
@@ -42,19 +44,29 @@ if channel_access_token is None:
 
 configuration = Configuration(access_token=channel_access_token)
 handler = WebhookHandler(channel_secret)
-session = aiohttp.ClientSession()
-async_http_client = AiohttpAsyncHttpClient(session)
 llm = ChatOpenAI(temperature=0.9, model='gpt-3.5-turbo')
-# 透過 ConversationBufferWindowMemory 快速打造一個具有「記憶力」的聊天機器人，可以記住至少五回。
-# 通常來說 5 回還蠻夠的
-memory = ConversationBufferWindowMemory(k=5)
-conversation = ConversationChain(
-    llm=llm,
-    memory=memory,
-    verbose=False
+memory = ConversationBufferWindowMemory(k=5, memory_key='chat_history')
+tools = load_tools(["serpapi"])
+prefix = """Have a conversation with a human, answering the following questions as best you can.
+If you don't know the answer, say you don't, don't try to make it up. 
+And answer in Tradional Chinese. You have access to the following tools:"""
+suffix = """Begin!"
+
+{chat_history}
+Question: {input}
+{agent_scratchpad}"""
+
+prompt = ZeroShotAgent.create_prompt(
+    tools,
+    prefix=prefix,
+    suffix=suffix,
+    input_variables=["input", "chat_history", "agent_scratchpad"],
 )
-
-
+llm_chain = LLMChain(llm=llm, prompt=prompt)
+agent = ZeroShotAgent(llm_chain=llm_chain, tools=tools, verbose=True)
+agent_chain = AgentExecutor.from_agent_and_tools(
+    agent=agent, tools=tools, verbose=True, memory=memory
+)
 
 @app.route("/")
 def hello_world():
@@ -86,8 +98,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
     print(event)
-    # 將使用者傳來的訊息 event.message.text 當成輸入，等 LangChain 傳回結果。
-    ret = conversation.predict(input=event.message.text)
+    ret = agent_chain.run(input=event.message.text)
 
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
