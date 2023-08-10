@@ -4,3 +4,5 @@ Flask
 langchain
 line-bot-sdk
 pydantic
+openai
+tiktoken
