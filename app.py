@@ -22,10 +22,10 @@ from linebot.v3.webhooks import (
     TextMessageContent
 )
 from langchain.chat_models import ChatOpenAI
-from langchain.memory import ConversationBufferWindowMemory
+from langchain.memory import ConversationBufferMemory
 from langchain.agents import ZeroShotAgent, Tool, AgentExecutor, load_tools
 from langchain import LLMChain
-
+# from langchain.utilities import GoogleSearchAPIWrapper
 
 app = Flask(__name__)
 
@@ -45,12 +45,10 @@ if channel_access_token is None:
 configuration = Configuration(access_token=channel_access_token)
 handler = WebhookHandler(channel_secret)
 llm = ChatOpenAI(temperature=0.9, model='gpt-3.5-turbo')
-memory = ConversationBufferWindowMemory(k=5, memory_key='chat_history')
+memory = ConversationBufferMemory(memory_key='chat_history')
 tools = load_tools(["serpapi"])
-prefix = """Have a conversation with a human, answering the following questions as best you can.
-If you don't know the answer, say you don't, don't try to make it up. 
-And answer in Tradional Chinese. You have access to the following tools:"""
-suffix = """Begin!"
+prefix = """盡可能回答以下問題。如果你不知道答案，就說你不知道，不要試圖亂回答。最後使用繁體中文回答。您可以使用以下工具："""
+suffix = """開始!"
 
 {chat_history}
 Question: {input}
@@ -99,7 +97,6 @@ def callback():
 def handle_message(event):
     print(event)
     ret = agent_chain.run(input=event.message.text)
-
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
         line_bot_api.reply_message_with_http_info(
@@ -110,4 +107,4 @@ def handle_message(event):
         )
 
 if __name__ == "__main__":
-    app.run(debug=False, port=port, host='0.0.0.0')
+    app.run(debug=True, port=port, host='0.0.0.0')
