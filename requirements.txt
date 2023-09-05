@@ -7,3 +7,7 @@ pydantic
 openai
 tiktoken
 google-search-results
+yfinance
+# redis
+psycopg
+psycopg-binary
