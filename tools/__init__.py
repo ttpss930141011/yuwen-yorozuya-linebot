@@ -14,6 +14,3 @@ toolslist = [
     CurrentStockPriceTool(),
     StockPerformanceTool()
 ]
-
-# export toolslist
-__all__ = ["toolslist"]
