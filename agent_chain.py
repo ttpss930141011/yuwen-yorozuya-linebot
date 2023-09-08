@@ -4,7 +4,7 @@ from langchain.prompts import MessagesPlaceholder
 from langchain.agents import OpenAIFunctionsAgent, AgentExecutor
 from langchain.schema import SystemMessage
 from langchain.memory.chat_message_histories import PostgresChatMessageHistory
-from config import CHATBOT_DESCRIPTION, POSTGRES_URL
+from config import CHATBOT_DESCRIPTION, CHATBOT_LANGUAGE, POSTGRES_URL
 from tools import toolslist
 
 
@@ -21,7 +21,7 @@ def create_agent_chain(session_id: str):
         memory_key=MEMORY_KEY, chat_memory=chat_memory, return_messages=True, k=10)
     llm = ChatOpenAI(temperature=0, model='gpt-3.5-turbo-0613')
     system_message = SystemMessage(
-        content=f"You are a powerful chat assistant,{CHATBOT_DESCRIPTION}")
+        content=f"You are a powerful chat assistant,{CHATBOT_DESCRIPTION}, and try to answer them in {CHATBOT_LANGUAGE}!")
     prompt = OpenAIFunctionsAgent.create_prompt(
         system_message=system_message,
         extra_prompt_messages=[MessagesPlaceholder(variable_name=MEMORY_KEY)]
