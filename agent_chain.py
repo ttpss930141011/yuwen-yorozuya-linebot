@@ -20,12 +20,15 @@ def create_agent_chain(session_id: str):
     memory = ConversationBufferWindowMemory(
         memory_key=MEMORY_KEY, chat_memory=chat_memory, return_messages=True, k=10)
     llm = ChatOpenAI(temperature=0, model='gpt-3.5-turbo-0613')
-    system_message = SystemMessage(
-        content=f"You are a powerful chat assistant,{CHATBOT_DESCRIPTION}, and try to answer them in {CHATBOT_LANGUAGE}!")
+    system_message = SystemMessage(content=f"{CHATBOT_DESCRIPTION}")
+    system_language = SystemMessage(
+        content=f"Normally, try to answer in {CHATBOT_LANGUAGE}")
     prompt = OpenAIFunctionsAgent.create_prompt(
         system_message=system_message,
-        extra_prompt_messages=[MessagesPlaceholder(variable_name=MEMORY_KEY)]
+        extra_prompt_messages=[MessagesPlaceholder(
+            variable_name=MEMORY_KEY), system_language]
     )
+    print(prompt)
     agent = OpenAIFunctionsAgent(llm=llm, tools=toolslist, prompt=prompt)
     agent_chain = AgentExecutor(
         agent=agent,

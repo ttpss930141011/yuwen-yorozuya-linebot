@@ -1,6 +1,6 @@
 <div align="center">
 <h1 align="center">
-<img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
+<img src="./static/images/Logo.png" width="100" />
 <br>LangChain-LineBot
 </h1>
 <h3>◦ Building a customize LangChain Linebot for everyone.</h3>
@@ -25,8 +25,10 @@
 - [📒 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
 - [📂 Project Structure](#project-structure)
-- [🧩 Modules](#modules)
+- [🧩 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
+- [👨‍🏫 Demo](#-demo)
+- [🔜 Next](#-next)
 - [📄 License](#-license)
 
 ---
@@ -114,6 +116,11 @@ pip install -r requirements.txt
 ```
 
 
+### 🧪 Running Tests
+```sh
+pytest
+```
+
 
 ### 🎮 Using LangChain-LineBot
 
@@ -151,12 +158,31 @@ python app.py
 3. Setup environment vairables
 
     <img align=center src="static\images\complete.png" ></img>
+---
+## 👨‍🏫 Demo
 
+#### Keep remember
 
-### 🧪 Running Tests
-```sh
-pytest
-```
+![demo1](./static/images/demo1.jpg)
+
+#### Search information on the internet
+
+![demo2](./static/images/demo2.jpg)
+
+#### Group assistant
+
+![group](./static/images/group.jpg)
+
+---
+
+## 🔜 Next
+
+The following is todo-list on LineBot:
+
+1. LineBot Mute and unmute functions
+1. Give youtube link and return video summary
+2. Give the file and start the document conversation
+
 
 ---
 
