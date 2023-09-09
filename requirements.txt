@@ -11,3 +11,5 @@ yfinance
 # redis
 psycopg
 psycopg-binary
+flake8
+pytest
