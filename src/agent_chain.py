@@ -4,7 +4,7 @@ from langchain.prompts import MessagesPlaceholder
 from langchain.agents import OpenAIFunctionsAgent, AgentExecutor
 from langchain.schema import SystemMessage
 from langchain.memory.chat_message_histories import PostgresChatMessageHistory
-from config import CHATBOT_DESCRIPTION, CHATBOT_LANGUAGE, POSTGRES_URL
+from src.config import CHATBOT_DESCRIPTION, CHATBOT_LANGUAGE, POSTGRES_URL
 from tools import toolslist
 
 

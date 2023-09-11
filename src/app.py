@@ -1,11 +1,11 @@
 import sys
 from flask import Flask, request, abort
-from config import CHANNEL_SECRET, CHANNEL_ACCESS_TOKEN, PORT
 from linebot.v3.exceptions import (
     InvalidSignatureError
 )
+from src.config import CHANNEL_SECRET, CHANNEL_ACCESS_TOKEN, PORT
+from src.line_bot import handler
 from utils.error_logger import errlogger
-from line_bot import handler
 
 app = Flask(__name__)
 
@@ -19,11 +19,13 @@ if CHANNEL_ACCESS_TOKEN is None:
 
 @app.route("/")
 def hello_world():
+    """Route printing service port."""
     return f'Hello, World! This server is running on port {PORT}'
 
 
 @app.route("/callback", methods=['POST'])
 def callback():
+    """Function printing python version."""
     signature = request.headers['X-Line-Signature']
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
@@ -38,13 +40,15 @@ def callback():
     return 'OK'
 
 @app.errorhandler(404)
-def page_not_found(e):
+def page_not_found():
+    """Return a custom 404 error."""
     app.logger.error('Page not found.')
     errlogger.error('Page not found.')
     return 'This page does not exist', 404
 
 @app.errorhandler(500)
-def server_error(e):
+def server_error():
+    """Return a custom 500 error."""
     app.logger.error('An error occurred during a request.')
     errlogger.error('An error occurred during a request.')
     return 'An internal error occurred.', 500

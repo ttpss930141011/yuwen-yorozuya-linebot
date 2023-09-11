@@ -13,8 +13,8 @@ from linebot.v3.webhooks import (
     TextMessageContent,
     FileMessageContent,
 )
-from agent_chain import create_agent_chain
-from config import CHANNEL_ACCESS_TOKEN, CHANNEL_SECRET
+from src.agent_chain import create_agent_chain
+from src.config import CHANNEL_ACCESS_TOKEN, CHANNEL_SECRET
 
 
 handler = WebhookHandler(CHANNEL_SECRET)
