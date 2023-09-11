@@ -1,11 +1,13 @@
+""" This module has the main function to run the application.
+"""
 import sys
 from flask import Flask, request, abort
 from linebot.v3.exceptions import (
     InvalidSignatureError
 )
-from src.config import CHANNEL_SECRET, CHANNEL_ACCESS_TOKEN, PORT
+from configs.config import CHANNEL_SECRET, CHANNEL_ACCESS_TOKEN, PORT
 from src.line_bot import handler
-from utils.error_logger import errlogger
+from src.utils.error_logger import errlogger
 
 app = Flask(__name__)
 
@@ -28,7 +30,7 @@ def callback():
     """Function printing python version."""
     signature = request.headers['X-Line-Signature']
     body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
+    app.logger.info("Request body: %s", body)
 
     try:
         handler.handle(body, signature)

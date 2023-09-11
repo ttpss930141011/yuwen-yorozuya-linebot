@@ -1,3 +1,5 @@
+""" LineBot handler
+"""
 from linebot.v3 import (
     WebhookHandler
 )
@@ -14,7 +16,7 @@ from linebot.v3.webhooks import (
     FileMessageContent,
 )
 from src.agent_chain import create_agent_chain
-from src.config import CHANNEL_ACCESS_TOKEN, CHANNEL_SECRET
+from configs.config import CHANNEL_ACCESS_TOKEN, CHANNEL_SECRET
 
 
 handler = WebhookHandler(CHANNEL_SECRET)
@@ -23,7 +25,7 @@ AGENT_CHAIN_DICT = {}
 
 
 @handler.add(MessageEvent, message=TextMessageContent)
-def handle_message(event):
+def handle_text_message(event):
     # print("event", event)
     session_id = event.source.user_id if event.source.type == "user" else event.source.group_id
     agent_chain = AGENT_CHAIN_DICT.get(session_id, None)
@@ -45,7 +47,7 @@ def handle_message(event):
 
 
 @handler.add(MessageEvent, message=FileMessageContent)
-def handle_message(event):
+def handle_file_message(event):
     print('event', event)
     # ret = agent_chain.run(input=f'{event.message.text}, 請用繁體中文回答。')
     with ApiClient(configuration) as api_client:

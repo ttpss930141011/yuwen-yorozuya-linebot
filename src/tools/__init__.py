@@ -1,7 +1,7 @@
 from langchain.utilities import SerpAPIWrapper
 from langchain.agents import Tool
 
-from tools.stock import CurrentStockPriceTool, StockPerformanceTool
+from .stock import CurrentStockPriceTool, StockPerformanceTool
 
 # initialize LangChain services
 search = SerpAPIWrapper()

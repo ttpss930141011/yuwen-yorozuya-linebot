@@ -1,11 +1,13 @@
+""" This module is used to create the agent chain
+"""
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import MessagesPlaceholder
 from langchain.agents import OpenAIFunctionsAgent, AgentExecutor
 from langchain.schema import SystemMessage
 from langchain.memory.chat_message_histories import PostgresChatMessageHistory
-from src.config import CHATBOT_DESCRIPTION, CHATBOT_LANGUAGE, POSTGRES_URL
-from tools import toolslist
+from configs.config import CHATBOT_DESCRIPTION, CHATBOT_LANGUAGE, POSTGRES_URL
+from src.tools import toolslist
 
 
 MEMORY_KEY = "chat_history"

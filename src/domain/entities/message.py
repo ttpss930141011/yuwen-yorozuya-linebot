@@ -1,7 +1,6 @@
 """ This module has definition of the Message entity
 """
-from abc import abstractmethod
-from dataclasses import Field, dataclass, asdict
+from dataclasses import dataclass, asdict
 
 @dataclass
 class Message:
