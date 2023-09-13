@@ -6,7 +6,7 @@ from typing import Dict
 from src.interactor.validations.base_input_validator import BaseInputValidator
 
 
-class CreateWindowInputDtoValidator(BaseInputValidator):
+class GetWindowInputDtoValidator(BaseInputValidator):
     """ Validates the create window input data.
     :param input_data: The input data to be validated.
     """
@@ -17,26 +17,6 @@ class CreateWindowInputDtoValidator(BaseInputValidator):
         self.__schema = {
             "window_id": {
                 "type": "string",
-                "required": True,
-                "empty": False
-            },
-            "is_muting": {
-                "type": "boolean",
-                "required": True,
-                "empty": False
-            },
-            "agent_language": {
-                "type": "string",
-                "required": True,
-                "empty": False
-            },
-            "system_message": {
-                "type": "string",
-                "required": True,
-                "empty": False
-            },
-            "temperature": {
-                "type": "float",
                 "required": True,
                 "empty": False
             }

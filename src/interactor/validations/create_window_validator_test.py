@@ -5,7 +5,6 @@
 
 import pytest
 from src.interactor.validations.create_window_validator import CreateWindowInputDtoValidator
-from src.interactor.errors.error_classes import FieldValueNotPermittedException
 
 
 def test_create_window_validator_valid_data(
@@ -53,6 +52,6 @@ def test_create_window_custom_validation(fixture_window):
             "is_muting": fixture_window["is_muting"],
         }
     validator = CreateWindowInputDtoValidator(input_data)
-    with pytest.raises(FieldValueNotPermittedException) as exception_info:
+    with pytest.raises(ValueError) as exception_info:
         validator.validate()
     assert str(exception_info.value) == "Window_id: Window is not permitted"
