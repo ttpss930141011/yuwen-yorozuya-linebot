@@ -109,7 +109,7 @@ class TextMessageContentController(FlaskPostgresqlControllerInterface):
 
     def execute(self, event: MessageEvent) -> Dict:
         if self.window.get("is_muting"):
-            return
+            return "靜悄悄的，什麼都沒有發生。"
         
         use_case = CreateTextMessageReplyUseCase(
             repository=self.repository,

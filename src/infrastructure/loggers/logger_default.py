@@ -14,7 +14,7 @@ class LoggerDefault(LoggerInterface):
             filename='logs/app.log',
             filemode='a',
             datefmt='%Y-%m-%d %H:%M:%S',
-            format='%(asctime)-s - %(levelname)s - %(message)s',
+            format='%(asctime)-s - %(filename)s - %(lineno)s - %(levelname)s - %(message)s',
             level=logging.INFO
         )
 

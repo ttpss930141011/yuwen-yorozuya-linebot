@@ -20,7 +20,7 @@ class TextEventHandler(LineEventHandlerInterface):
 
 
     def execute(self, event: MessageEvent):
-        controller = TextMessageContentController( self.logger, self.agent_repository)
+        controller = TextMessageContentController(self.logger, self.agent_repository)
         controller.get_window_id(event)
         controller.get_window_info()
         ret = controller.execute(event)

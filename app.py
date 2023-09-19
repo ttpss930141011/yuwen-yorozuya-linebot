@@ -10,5 +10,5 @@ logger = LoggerDefault()
 
 
 if __name__ == "__main__":
-    flask_memory_app = create_flask_postgresql_app(Config, logger)
-    flask_memory_app.run(debug=True)
+    app = create_flask_postgresql_app(Config, logger)
+    app.run(host="0.0.0.0", port=Config.PORT, debug=True)

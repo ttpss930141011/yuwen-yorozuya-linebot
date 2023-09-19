@@ -45,6 +45,8 @@ def setup_error_handler(app: Flask) -> None:
         logger.log_exception(
             "exception of type {} occurred".format(type(error)))
         logger.log_exception(str(error.__class__.__name__))
+        print(error.__class__.__name__)
+        print(error)
 
         if isinstance(error, HTTPException):
             return create_error_response(str(error), error.code)

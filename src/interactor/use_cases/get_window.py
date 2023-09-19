@@ -34,7 +34,7 @@ class GetWindowUseCase():
         validator.validate()
         window = self.repository.get(window_id=input_dto.window_id)
         if window is None:
-            self.logger.log_exception("Window creation failed")
+            self.logger.log_exception("Window get failed")
             return None
         output_dto = WindowOutputDto(window)
         presenter_response = self.presenter.present(output_dto)
