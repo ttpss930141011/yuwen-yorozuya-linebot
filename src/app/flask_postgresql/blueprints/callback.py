@@ -4,10 +4,10 @@
 from flask import Blueprint, request
 from src.app.flask_postgresql.event_handlers import handler
 
-blueprint_callback = Blueprint('callback', __name__)
+blueprint = Blueprint('callback', __name__)
 
 
-@blueprint_callback.route('/callback', methods=["POST"])
+@blueprint.route('/callback', methods=["POST"])
 def callback_blueprint():
     """Function printing python version."""
 
