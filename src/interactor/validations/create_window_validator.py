@@ -48,5 +48,5 @@ class CreateWindowInputDtoValidator(BaseInputValidator):
         # Verify the input data using BaseInputValidator method
         super().verify(self.__schema)
         # This is an example of a custom validation
-        # if self.input_data["window_id"] == "Window":
-        #     raise ValueError("Window_id: Window is not permitted")
+        if self.input_data["window_id"] == "Window":
+            raise ValueError("Window_id: Window is not permitted")
