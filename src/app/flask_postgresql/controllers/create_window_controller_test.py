@@ -5,22 +5,29 @@
 
 import pytest
 from unittest import mock
-from interactor.dtos.window_dtos import CreateWindowInputDto
 from src.interactor.interfaces.logger.logger import LoggerInterface
 
 with mock.patch(
     "sqlalchemy.create_engine"
 ) as mock_create_engine:
-    from app.flask_postgresql.controllers.create_window_controller \
+    from src.app.flask_postgresql.controllers.create_window_controller \
         import CreateWindowController
+    
 
 
-def test_create_window(monkeypatch, mocker, fixture_window_developer):
-    name = fixture_window_developer["name"]
-    description = fixture_window_developer["description"]
+def test_create_window(monkeypatch, mocker, fixture_window):
+    window_id = fixture_window["window_id"]
+    is_muting = fixture_window["is_muting"]
+    system_message = fixture_window["system_message"]
+    agent_language = fixture_window["agent_language"]
+    temperature = fixture_window["temperature"]
+
     fake_user_inputs = {
-        "name": name,
-        "description": description
+        "window_id": window_id,
+        "is_muting": is_muting,
+        "system_message": system_message,
+        "agent_language": agent_language,
+        "temperature": temperature
     }
     monkeypatch.setattr('builtins.input', lambda _: next(fake_user_inputs))
 
@@ -39,9 +46,11 @@ CreateWindowUseCase')
         "log_info"
     )
     result_use_case = {
-        "window_id": fixture_window_developer["window_id"],
-        "name": fixture_window_developer["name"],
-        "description": fixture_window_developer["description"]
+        "window_id": fixture_window["window_id"],
+        "is_muting": fixture_window["is_muting"],
+        "system_message": fixture_window["system_message"],
+        "agent_language": fixture_window["agent_language"],
+        "temperature": fixture_window["temperature"]
     }
     mock_use_case_instance.execute.return_value = result_use_case
 
@@ -56,25 +65,20 @@ CreateWindowUseCase')
         mock_repository.return_value,
         logger_mock
     )
-    input_dto = CreateWindowInputDto(name, description)
-    mock_use_case_instance.execute.assert_called_once_with(input_dto)
-    assert result["name"] == name
-    assert result["description"] == description
+    assert result["window_id"] == fixture_window["window_id"]
+    assert result["is_muting"] == fixture_window["is_muting"]
+    assert result["system_message"] == fixture_window["system_message"]
+    assert result["agent_language"] == fixture_window["agent_language"]
+    assert result["temperature"] == fixture_window["temperature"]
 
-    # Test for missing inputs (name)
+    # Test for missing inputs (window_id)
     fake_user_inputs = {
-        "nam": name,
-        "description": description
+        "window_i": window_id,
+        "is_muting": is_muting,
+        "system_message": system_message,
+        "agent_language": agent_language,
+        "temperature": temperature
     }
     with pytest.raises(ValueError) as exception_info:
         controller.get_window_info(fake_user_inputs)
-    assert str(exception_info.value) == "Missing Window Name"
-
-    # Test for missing inputs (description)
-    fake_user_inputs = {
-        "name": name,
-        "descriptio": description
-    }
-    with pytest.raises(ValueError) as exception_info:
-        controller.get_window_info(fake_user_inputs)
-    assert str(exception_info.value) == "Missing Window Description"
+    assert str(exception_info.value) == "Missing Window Id"
