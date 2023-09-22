@@ -1,9 +1,8 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 
+from src.infrastructure.db_models.db_base import Base,engine
 from src.domain.exceptions import OperationalException
 
-sqlalchemy_db = SQLAlchemy()
 
 
 class SQLAlchemyAdapter:
@@ -11,9 +10,7 @@ class SQLAlchemyAdapter:
     def __init__(self, app: Flask):
 
         if app.config['SQLALCHEMY_DATABASE_URI'] is not None:
-            sqlalchemy_db.init_app(app)
-            with app.app_context():
-                sqlalchemy_db.create_all()
+            Base.metadata.create_all(bind=engine)
         elif not app.config["TESTING"]:
             raise OperationalException("SQLALCHEMY_DATABASE_URI not set")
 

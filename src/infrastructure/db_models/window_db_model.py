@@ -1,18 +1,18 @@
 """ Defines the window database model.
 """
 
-
 from typing import TYPE_CHECKING, List
 from sqlalchemy import  String, Boolean, Float, DateTime
 from sqlalchemy.orm import Mapped, relationship, mapped_column
 from datetime import datetime
-from src.infrastructure.databases import sqlalchemy_db as db
+
+from src.infrastructure.db_models.db_base import Base
 
 if TYPE_CHECKING:
     from src.infrastructure.db_models import MessagesDBModel
 
 
-class WindowsDBModel(db.Model):
+class WindowsDBModel(Base):
     __tablename__ = 'windows'
 
     window_id: Mapped[String] = mapped_column(

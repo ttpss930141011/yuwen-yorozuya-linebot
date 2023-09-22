@@ -4,8 +4,8 @@ from langchain.schema import BaseChatMessageHistory
 from langchain.schema.messages import BaseMessage
 from langchain.schema.messages import BaseMessage, _message_to_dict, messages_from_dict
 
+from src.infrastructure.db_models.db_base import Session
 from src.infrastructure.db_models import MessagesDBModel
-from src.infrastructure.databases import sqlalchemy_db as db
 
 class CustomPostgresMessageHistory(BaseChatMessageHistory):
     """In Postgre implementation of chat message history.
@@ -14,7 +14,7 @@ class CustomPostgresMessageHistory(BaseChatMessageHistory):
     """
 
     def __init__(self, window_id: str) -> None:
-        self.__db = db
+        self.__db = Session
         self.window_id = window_id
         if not self.window_id:
             raise ValueError("Window id is required")
@@ -35,7 +35,7 @@ class CustomPostgresMessageHistory(BaseChatMessageHistory):
     @property
     def messages(self) -> List[BaseMessage]:  # type: ignore
         """Retrieve all of the messages from MessagesDBModel"""
-        message_model_list = MessagesDBModel.query.filter(
+        message_model_list = self.__db.query(MessagesDBModel).filter(
             MessagesDBModel.window_id == self.window_id).all()
         model_to_dict= [self.__db_model_to_message(record) for record in message_model_list]
         message_list = [record["message"] for record in model_to_dict]
@@ -48,14 +48,14 @@ class CustomPostgresMessageHistory(BaseChatMessageHistory):
             window_id=self.window_id,
             message=_message_to_dict(message)
         )
-        self.__db.session.add(message_db_model)
-        self.__db.session.commit()
+        self.__db.add(message_db_model)
+        self.__db.commit()
 
     def clear(self) -> None:
         """Clear all messages by window_id from the store"""
-        self.__db.session.query(MessagesDBModel).filter(
+        self.__db.query(MessagesDBModel).filter(
             MessagesDBModel.window_id == self.window_id).delete()
-        self.__db.session.commit()
+        self.__db.commit()
 
     def __del__(self) -> None:
         """
@@ -67,5 +67,5 @@ class CustomPostgresMessageHistory(BaseChatMessageHistory):
         Returns:
             None
         """
-        if self.__db.session is not None:
-            self.__db.session.close()
+        if self.__db is not None:
+            self.__db.close()

@@ -1,6 +1,7 @@
 """ Main Flask PostgreSQL app
 """
 from flask import Flask
+from src.app.flask_postgresql.request_context import setup_request_context
 from src.app.flask_postgresql.blueprints import setup_blueprints
 from src.app.flask_postgresql.error_handler import setup_error_handler
 from src.infrastructure.databases.sql_alchemy import setup_sqlalchemy
@@ -15,5 +16,6 @@ def create_flask_postgresql_app(config, logger: LoggerInterface) -> Flask:
     app = setup_blueprints(app)
     app = setup_sqlalchemy(app)
     app = setup_error_handler(app)
-
+    app = setup_request_context(app)
+    
     return app
