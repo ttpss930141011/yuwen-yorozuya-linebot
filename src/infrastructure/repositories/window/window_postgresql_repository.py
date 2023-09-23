@@ -62,7 +62,6 @@ class WindowPostgresqlRepository(WindowRepositoryInterface):
         :return: Optional[Window]
         """
         result = self.__db.query(WindowsDBModel).get(window_id)
-        print(result)
         if result is None:
             return None
         return self.__db_to_entity(result)

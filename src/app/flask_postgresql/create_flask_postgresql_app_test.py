@@ -7,16 +7,16 @@ from unittest import mock
 from flask import Flask
 from flask.testing import FlaskClient
 import pytest
-from src.app.flask_postgresql.event_handlers.text_event_handler import TextEventHandler
 from src.infrastructure.loggers.logger_default import LoggerDefault
 from src.app.flask_postgresql.configs import Config
 
 
 with mock.patch(
-    "flask_sqlalchemy.SQLAlchemy"
-) as mock_create_engine:
-    from app.flask_postgresql.controllers.create_window_controller \
-        import CreateWindowController
+    "sqlalchemy.create_engine"
+) as mock_create_engine, \
+    mock.patch(
+        "langchain.utilities.SerpAPIWrapper"
+) as mock_sessionmaker:
     from .create_flask_postgresql_app import create_flask_postgresql_app
 
 

@@ -1,10 +1,12 @@
 from langchain.utilities import SerpAPIWrapper
 from langchain.agents import Tool
 
+from src.app.flask_postgresql.configs import Config
+
 from .stock import CurrentStockPriceTool, StockPerformanceTool
 
 # initialize LangChain services
-search = SerpAPIWrapper()
+search = SerpAPIWrapper(serpapi_api_key=Config.SERPAPI_API_KEY)
 tools = [
     Tool(
         name="Search",
