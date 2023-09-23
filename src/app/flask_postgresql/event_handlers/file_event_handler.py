@@ -1,6 +1,6 @@
 """ This module implements the event handler for file message events.
 """
-from src.app.flask_postgresql.interfaces.line_event_handler_interface import LineEventHandlerInterface
+from src.app.flask_postgresql.interfaces.event_handler_interface import EventHandlerInterface
 from linebot.v3.messaging import (
     ApiClient,
     MessagingApi,
@@ -9,7 +9,7 @@ from linebot.v3.messaging import (
 )
 
 
-class FileEventHandler(LineEventHandlerInterface):
+class FileEventHandler(EventHandlerInterface):
     def __init__(self, logger, agent_repository, configuration):
         self.logger = logger
         self.agent_repository = agent_repository
