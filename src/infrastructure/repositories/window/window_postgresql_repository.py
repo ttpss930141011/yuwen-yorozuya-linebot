@@ -3,10 +3,10 @@
 
 from typing import Optional
 from sqlalchemy.exc import IntegrityError
-from src.domain.entities.window import Window
-from src.interactor.interfaces.repositories.window_repository import WindowRepositoryInterface
-from src.infrastructure.databases import sqlalchemy_db as db
 
+from src.domain.entities.window import Window
+from src.infrastructure.db_models.db_base import Session
+from src.interactor.interfaces.repositories.window_repository import WindowRepositoryInterface
 from src.infrastructure.db_models.window_db_model import WindowsDBModel
 
 
@@ -15,7 +15,7 @@ class WindowPostgresqlRepository(WindowRepositoryInterface):
     """
 
     def __init__(self) -> None:
-        self.__db = db
+        self.__db = Session
 
     def __db_to_entity(
             self, db_row: WindowsDBModel
@@ -44,11 +44,11 @@ class WindowPostgresqlRepository(WindowRepositoryInterface):
             temperature=temperature
         )
         try:
-            self.__db.session.add(window_db_model)
-            self.__db.session.commit()
-            self.__db.session.refresh(window_db_model)
+            self.__db.add(window_db_model)
+            self.__db.commit()
+            self.__db.refresh(window_db_model)
         except IntegrityError:
-            self.__db.session.rollback()
+            self.__db.rollback()
             raise ValueError("Window creation failed")
 
         if window_db_model is None:
@@ -61,7 +61,7 @@ class WindowPostgresqlRepository(WindowRepositoryInterface):
         :param window_id: str
         :return: Optional[Window]
         """
-        result = self.__db.session.query(WindowsDBModel).get(window_id)
+        result = self.__db.query(WindowsDBModel).get(window_id)
         if result is None:
             return None
         return self.__db_to_entity(result)
@@ -78,7 +78,7 @@ class WindowPostgresqlRepository(WindowRepositoryInterface):
             agent_language=window.agent_language,
             temperature=window.temperature
         )
-        result = self.__db.session.query(WindowsDBModel).filter_by(window_id=window.window_id).update(
+        result = self.__db.query(WindowsDBModel).filter_by(window_id=window.window_id).update(
             {
                 "is_muting": window_db_model.is_muting,
                 "system_message": window_db_model.system_message,
@@ -88,5 +88,5 @@ class WindowPostgresqlRepository(WindowRepositoryInterface):
         )
         if result == 0:
             return None
-        self.__db.session.commit()
+        self.__db.commit()
         return self.__db_to_entity(window_db_model)

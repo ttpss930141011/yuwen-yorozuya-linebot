@@ -2,15 +2,17 @@
 # pylint: disable=missing-class-docstring
 # pylint: disable=missing-function-docstring
 
-import uuid
 import pytest
 
 @pytest.fixture
 def fixture_window():
     """ Fixture with Window example """
     return {
-        "window_id": uuid.uuid4().hex,
+        "window_id": "abc1234567890",
         "is_muting": False,
+        "system_message": "Hello World",
+        "agent_language": "en",
+        "temperature": 20.0
     }
 
 
@@ -18,6 +20,6 @@ def fixture_window():
 def fixture_message():
     """ Fixture with Message example """
     return {
-        "window_id": uuid.uuid4().hex,
+        "window_id": "1234567890",
         "message": {},
     }

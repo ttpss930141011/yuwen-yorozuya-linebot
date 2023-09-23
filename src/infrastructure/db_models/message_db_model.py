@@ -6,13 +6,16 @@ from datetime import datetime
 from sqlalchemy import ForeignKey,  DateTime, JSON, Integer
 from sqlalchemy.orm import Mapped, relationship, mapped_column
 
-from src.infrastructure.databases import sqlalchemy_db as db
+from src.infrastructure.db_models.db_base import Base
+
+if TYPE_CHECKING:
+    from src.infrastructure.db_models import WindowsDBModel
 
 if TYPE_CHECKING:
     from src.infrastructure.db_models import WindowsDBModel
 
 
-class MessagesDBModel(db.Model):
+class MessagesDBModel(Base):
     __tablename__ = 'messages'
 
     message_id: Mapped[Integer] = mapped_column(

@@ -11,7 +11,7 @@ load_dotenv(encoding='utf8')
 class Config(object):
     DEBUG = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
+    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI", '')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_POOL_SIZE = 10
@@ -27,12 +27,12 @@ class Config(object):
     }
 
     SERVICE_PREFIX = os.environ.get('SERVICE_PREFIX', '')
-    CHANNEL_SECRET = os.getenv('CHANNEL_SECRET')
-    CHANNEL_ACCESS_TOKEN = os.getenv('CHANNEL_ACCESS_TOKEN')
-    PORT = os.getenv("PORT")
-    SERPAPI_API_KEY = os.getenv("SERPAPI_API_KEY")
-    CHATBOT_DESCRIPTION = os.getenv('CHATBOT_DESCRIPTION')
-    CHATBOT_LANGUAGE = os.getenv('CHATBOT_LANGUAGE')
+    CHANNEL_SECRET = os.getenv('CHANNEL_SECRET', '')
+    CHANNEL_ACCESS_TOKEN = os.getenv('CHANNEL_ACCESS_TOKEN', '')
+    PORT = os.getenv("PORT", 5000)
+    SERPAPI_API_KEY = os.getenv("SERPAPI_API_KEY", '')
+    CHATBOT_DESCRIPTION = os.getenv('CHATBOT_DESCRIPTION', '')
+    CHATBOT_LANGUAGE = os.getenv('CHATBOT_LANGUAGE', '')
     MEMORY_KEY = "chat_history"
 
     def __init__(self):
