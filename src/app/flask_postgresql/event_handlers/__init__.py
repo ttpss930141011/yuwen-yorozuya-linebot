@@ -44,13 +44,23 @@ def handle_text_message(event: MessageEvent):
 
 
 @handler.add(MessageEvent, message=FileMessageContent)
-def handle_file_message(event):
+def handle_file_message(event: MessageEvent):
     handler = FileEventHandler(
         logger=current_app.config['logger'],
         agent_repository=agent_repository,
         configuration=configuration
     )
     result = handler.execute(event)
+
+    with ApiClient(configuration) as api_client:
+        line_bot_api = MessagingApi(api_client)
+        line_bot_api.reply_message_with_http_info(
+            ReplyMessageRequest(
+                reply_token=event.reply_token,
+                messages=[TextMessage(text=result)]
+            )
+        )
+    
 
 
 __all__ = [
