@@ -1,6 +1,6 @@
 """ Module for LoggerDefault class."""
 
-
+import os
 import logging
 from src.interactor.interfaces.logger.logger import LoggerInterface
 
@@ -10,6 +10,14 @@ class LoggerDefault(LoggerInterface):
     """
 
     def __init__(self):
+        """ Constructor.
+        """
+
+        # check if logs folder exists, if not, create it
+        if not os.path.exists('logs'):
+            os.makedirs('logs')
+
+        # configure logger
         logging.basicConfig(
             filename='logs/app.log',
             filemode='a',

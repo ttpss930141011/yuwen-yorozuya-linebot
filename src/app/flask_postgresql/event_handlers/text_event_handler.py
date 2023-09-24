@@ -1,5 +1,6 @@
 """ This module implements the event handler for text message events.
 """
+from typing import Dict
 from src.app.flask_postgresql.configs import Config
 from src.app.flask_postgresql.presenters.window_presenter import WindowPresenter
 from src.app.flask_postgresql.interfaces.event_handler_interface import EventHandlerInterface
@@ -19,28 +20,30 @@ class TextEventHandler(EventHandlerInterface):
     def __init__(self, logger, agent_repository):
         self.logger = logger
         self.agent_repository = agent_repository
-        self.window_id: str
         self.input_dto: EventInputDto
 
     def get_event_info(self, event: MessageEvent):
-        
+
         if event.source.type == "user":
-            self.window_id = event.source.user_id
+            window_id = event.source.user_id
         elif event.source.type == "group":
-            self.window_id = event.source.group_id
+            window_id = event.source.group_id
         elif event.source.type == "room":
-            self.window_id = event.source.room_id
+            window_id = event.source.room_id
         else:
             raise ValueError("Invalid event source type")
         
-        if "text" in event.message:
+        if "text" in event.message.to_json():
             user_input = event.message.text
+        else:
+            user_input = ""
         
         self.input_dto = EventInputDto(
-            user_input=user_input
+            window=self.get_window_info(window_id=window_id),
+            user_input=user_input,
         )
 
-    def get_window_info(self, window_id: str) -> None:
+    def get_window_info(self, window_id: str) -> Dict:
         """
         Retrieves the information of a window.
 
@@ -51,7 +54,7 @@ class TextEventHandler(EventHandlerInterface):
         if window is None:
             window = self._create_window_info(window_id=window_id)
 
-        self.input_dto.window = window
+        return window
    
 
     def execute(self):
