@@ -1,5 +1,15 @@
 {
     "python.analysis.extraPaths": [
         "./src"
-    ]
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.rulers": [100],
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": true,
+            "source.organizeImports.ruff": true,
+        },
+        "editor.formatOnType": true
+    }
 }
