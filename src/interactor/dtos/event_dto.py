@@ -2,31 +2,30 @@
 """
 
 
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from typing import Dict
 
 
 @dataclass
 class EventInputDto:
-    """ Input Dto for event call """
+    """Input Dto for event call"""
+
     window: Dict
     user_input: str
 
     def to_dict(self):
-        """ Convert data into dictionary
-        """
+        """Convert data into dictionary"""
         return asdict(self)
 
 
 @dataclass
 class EventOutputDto:
-    """ Output Dto for event call """
+    """Output Dto for event call"""
+
     window: Dict
     user_input: str
     response: str
 
     def to_dict(self):
-        """ Convert data into dictionary
-        """
+        """Convert data into dictionary"""
         return asdict(self)
-    

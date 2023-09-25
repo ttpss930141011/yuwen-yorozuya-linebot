@@ -3,12 +3,12 @@
 
 
 from abc import ABC, abstractmethod
+
 from langchain.agents import AgentExecutor
 
 
 class AgentExecutorRepositoryInterface(ABC):
-    """ This class is the interface for the AgentExecutorRepository
-    """
+    """This class is the interface for the AgentExecutorRepository"""
 
     @abstractmethod
     def get(self, window_id: str) -> AgentExecutor:
@@ -23,7 +23,9 @@ class AgentExecutorRepositoryInterface(ABC):
         """
 
     @abstractmethod
-    def create(self, window_id: str, agent_language: str, system_message: str, temperature: float) -> AgentExecutor:
+    def create(
+        self, window_id: str, agent_language: str, system_message: str, temperature: float
+    ) -> AgentExecutor:
         """
         Creates an AgentExecutor for the given window.
 
@@ -35,7 +37,9 @@ class AgentExecutorRepositoryInterface(ABC):
         """
 
     @abstractmethod
-    def update(self, window_id: str, agent_language: str, system_message: str, temperature: float) -> AgentExecutor:
+    def update(
+        self, window_id: str, agent_language: str, system_message: str, temperature: float
+    ) -> AgentExecutor:
         """
         Update the agent executor with the given window.
 

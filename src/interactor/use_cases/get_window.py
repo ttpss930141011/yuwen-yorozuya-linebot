@@ -3,29 +3,29 @@
 
 
 from typing import Dict
-from src.interactor.interfaces.presenters.window_presenter import WindowPresenterInterface
+
 from src.interactor.dtos.window_dtos import GetWindowInputDto, WindowOutputDto
+from src.interactor.interfaces.logger.logger import LoggerInterface
+from src.interactor.interfaces.presenters.window_presenter import WindowPresenterInterface
 from src.interactor.interfaces.repositories.window_repository import WindowRepositoryInterface
 from src.interactor.validations.get_window_validator import GetWindowInputDtoValidator
-from src.interactor.interfaces.logger.logger import LoggerInterface
 
 
-class GetWindowUseCase():
-    """ This class is responsible for creating a new window.
-    """
+class GetWindowUseCase:
+    """This class is responsible for creating a new window."""
 
     def __init__(
-            self,
-            presenter: WindowPresenterInterface,
-            repository: WindowRepositoryInterface,
-            logger: LoggerInterface,
+        self,
+        presenter: WindowPresenterInterface,
+        repository: WindowRepositoryInterface,
+        logger: LoggerInterface,
     ):
         self.presenter = presenter
         self.repository = repository
         self.logger = logger
 
     def execute(self, input_dto: GetWindowInputDto) -> Dict:
-        """ This method is responsible for creating a new window.
+        """This method is responsible for creating a new window.
         :param input_dto: The input data transfer object.
         :type input_dto: GetWindowInputDto
         :return: Dict

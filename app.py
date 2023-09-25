@@ -2,9 +2,11 @@
 """
 
 
-from src.app.flask_postgresql.create_flask_postgresql_app import create_flask_postgresql_app
-from src.infrastructure.loggers.logger_default import LoggerDefault
 from src.app.flask_postgresql.configs import Config
+from src.app.flask_postgresql.create_flask_postgresql_app import (
+    create_flask_postgresql_app,
+)
+from src.infrastructure.loggers.logger_default import LoggerDefault
 
 logger = LoggerDefault()
 

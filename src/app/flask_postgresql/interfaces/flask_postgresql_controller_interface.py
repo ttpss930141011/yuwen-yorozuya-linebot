@@ -2,16 +2,15 @@
 """
 
 
-from typing import Dict
 from abc import ABC, abstractmethod
+from typing import Dict
 
 
 class FlaskPostgresqlControllerInterface(ABC):
-    """ This class is the interface for the Flask Postgresql Controller class
-    """
+    """This class is the interface for the Flask Postgresql Controller class"""
 
     @abstractmethod
     def execute(self) -> Dict:
-        """ Executes the controller
+        """Executes the controller
         :returns: Window created
         """
