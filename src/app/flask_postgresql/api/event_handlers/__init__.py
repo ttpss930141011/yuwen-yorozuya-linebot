@@ -7,16 +7,11 @@ from linebot.v3.webhooks import (
     TextMessageContent,
     FileMessageContent
 )
-from linebot.v3.messaging import (
-    ApiClient,
-    MessagingApi,
-    ReplyMessageRequest,
-    TextMessage,
-    Configuration
-)
+from linebot.v3.messaging import Configuration
+from src.app.flask_postgresql.api.response import create_response
 from src.app.flask_postgresql.configs import Config
-from src.app.flask_postgresql.event_handlers.text_event_handler import TextEventHandler
-from src.app.flask_postgresql.event_handlers.file_event_handler import FileEventHandler
+from src.app.flask_postgresql.api.event_handlers.text_event_handler import TextEventHandler
+from src.app.flask_postgresql.api.event_handlers.file_event_handler import FileEventHandler
 from src.infrastructure.repositories.agent_chain.agent_chain_in_memory_repository import AgentExecutorInMemoryRepository
 
 handler = WebhookHandler(Config.CHANNEL_SECRET)
@@ -26,6 +21,7 @@ agent_repository = AgentExecutorInMemoryRepository()
 
 @handler.add(MessageEvent, message=TextMessageContent)
 def handle_text_message(event: MessageEvent):
+
     handler = TextEventHandler(
         logger=current_app.config['logger'],
         agent_repository=agent_repository,
@@ -33,14 +29,7 @@ def handle_text_message(event: MessageEvent):
     handler.get_event_info(event)
     result = handler.execute()
 
-    with ApiClient(configuration) as api_client:
-        line_bot_api = MessagingApi(api_client)
-        line_bot_api.reply_message_with_http_info(
-            ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[TextMessage(text=result)]
-            )
-        )
+    return create_response(configuration, event.reply_token, result)
 
 
 @handler.add(MessageEvent, message=FileMessageContent)
@@ -52,17 +41,9 @@ def handle_file_message(event: MessageEvent):
     )
     result = handler.execute(event)
 
-    with ApiClient(configuration) as api_client:
-        line_bot_api = MessagingApi(api_client)
-        line_bot_api.reply_message_with_http_info(
-            ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[TextMessage(text=result)]
-            )
-        )
+    return create_response(configuration, event.reply_token, result)
+
     
 
 
-__all__ = [
-    'handler'
-]
+__all__ = ['handler']

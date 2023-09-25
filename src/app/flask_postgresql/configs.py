@@ -18,13 +18,6 @@ class Config(object):
     SQLALCHEMY_MAX_OVERFLOW = 20
     SQLALCHEMY_POOL_RECYCLE = 300
     SQLALCHEMY_POOL_TIMEOUT = 300
-    SQLALCHEMY_ENGINE_OPTIONS = {
-        "pool_pre_ping": True,
-        "pool_recycle": 300,
-        "pool_timeout": 300,
-        "pool_size": 10,
-        "max_overflow": 20
-    }
 
     SERVICE_PREFIX = os.environ.get('SERVICE_PREFIX', '')
     CHANNEL_SECRET = os.getenv('CHANNEL_SECRET', '')

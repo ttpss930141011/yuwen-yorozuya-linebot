@@ -1,8 +1,7 @@
 """ Flask PostgreSQL Blueprint Line Callback
 """
 
-from flask import Blueprint, request
-from src.app.flask_postgresql.event_handlers import handler
+from flask import Blueprint
 
 blueprint = Blueprint('main', __name__)
 

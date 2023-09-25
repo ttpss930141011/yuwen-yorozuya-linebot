@@ -3,7 +3,7 @@
 
 from flask import Blueprint, request, abort, current_app
 from src.interactor.interfaces.logger.logger import LoggerInterface
-from src.app.flask_postgresql.event_handlers import handler
+from src.app.flask_postgresql.api.event_handlers import handler
 from linebot.v3.exceptions import InvalidSignatureError
 blueprint = Blueprint('callback', __name__)
 
@@ -14,6 +14,7 @@ def callback_blueprint():
     logger: LoggerInterface = current_app.config['logger']
     signature = request.headers['X-Line-Signature']
     body = request.get_data(as_text=True)
+    
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:

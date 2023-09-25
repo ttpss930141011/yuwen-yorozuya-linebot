@@ -4,7 +4,6 @@
 
 from dataclasses import dataclass, asdict
 from typing import Dict
-# from src.domain.entities.window import Window
 
 
 @dataclass
@@ -22,7 +21,7 @@ class EventInputDto:
 @dataclass
 class EventOutputDto:
     """ Output Dto for event call """
-    window_id: str
+    window: Dict
     user_input: str
     response: str
 

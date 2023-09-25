@@ -67,7 +67,7 @@ def test_request_window(
         ]
     }
     handler_mock = mocker.patch(
-        "src.app.flask_postgresql.event_handlers.handler.handle"
+        "src.app.flask_postgresql.api.event_handlers.handler.handle"
     )
     response = client_flask_postgresql_app.post(
         "/callback",
@@ -103,7 +103,7 @@ def test_request_window_wrong_url_error(
         ]
     }
     handler_mock = mocker.patch(
-        "src.app.flask_postgresql.event_handlers.handler.handle"
+        "src.app.flask_postgresql.api.event_handlers.handler.handle"
     )
     response = client_flask_postgresql_app.post(
         "/callbac",

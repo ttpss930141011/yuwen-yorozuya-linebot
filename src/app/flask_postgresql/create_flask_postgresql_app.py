@@ -1,9 +1,9 @@
 """ Main Flask PostgreSQL app
 """
 from flask import Flask
-from src.app.flask_postgresql.request_context import setup_request_context
-from src.app.flask_postgresql.blueprints import setup_blueprints
-from src.app.flask_postgresql.error_handler import setup_error_handler
+from src.app.flask_postgresql.api.request_context import setup_request_context
+from src.app.flask_postgresql.api.blueprints import setup_blueprints
+from src.app.flask_postgresql.api.error_handler import setup_error_handler
 from src.infrastructure.databases.sql_alchemy import setup_sqlalchemy
 from src.interactor.interfaces.logger.logger import LoggerInterface
 
