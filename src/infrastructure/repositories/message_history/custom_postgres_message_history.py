@@ -3,6 +3,8 @@ from typing import List
 from langchain.schema import BaseChatMessageHistory
 from langchain.schema.messages import BaseMessage
 from langchain.schema.messages import BaseMessage, _message_to_dict, messages_from_dict
+from sqlalchemy.exc import IntegrityError
+
 
 from src.infrastructure.db_models.db_base import Session
 from src.infrastructure.db_models import MessagesDBModel
@@ -48,14 +50,27 @@ class CustomPostgresMessageHistory(BaseChatMessageHistory):
             window_id=self.window_id,
             message=_message_to_dict(message)
         )
-        self.__db.add(message_db_model)
-        self.__db.commit()
+        try:
+            self.__db.add(message_db_model)
+            self.__db.commit()
+            self.__db.refresh(message_db_model)
+        except IntegrityError:
+            self.__db.rollback()
+            raise ValueError("Message creation failed")
+        finally:
+            self.__db.close()
 
     def clear(self) -> None:
         """Clear all messages by window_id from the store"""
-        self.__db.query(MessagesDBModel).filter(
-            MessagesDBModel.window_id == self.window_id).delete()
-        self.__db.commit()
+        try:
+            self.__db.query(MessagesDBModel).filter(
+                MessagesDBModel.window_id == self.window_id).delete()
+            self.__db.commit()
+        except IntegrityError:
+            self.__db.rollback()
+            raise ValueError("Message deletion failed")
+        finally:
+            self.__db.close()
 
     def __del__(self) -> None:
         """

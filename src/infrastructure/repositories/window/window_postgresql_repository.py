@@ -50,6 +50,8 @@ class WindowPostgresqlRepository(WindowRepositoryInterface):
         except IntegrityError:
             self.__db.rollback()
             raise ValueError("Window creation failed")
+        finally:
+            self.__db.close()
 
         if window_db_model is None:
             return None
