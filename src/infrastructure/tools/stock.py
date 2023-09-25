@@ -1,8 +1,9 @@
-from typing import Type
-from pydantic import BaseModel, Field
-from langchain.tools import BaseTool
-import yfinance as yf
 from datetime import datetime, timedelta
+from typing import Type
+
+import yfinance as yf
+from langchain.tools import BaseTool
+from pydantic import BaseModel, Field
 
 
 def get_current_stock_price(ticker):
@@ -22,6 +23,7 @@ def get_stock_performance(ticker, days):
     old_price = history.iloc[0]["Close"]
     current_price = history.iloc[-1]["Close"]
     return {"percent_change": ((current_price - old_price) / old_price) * 100}
+
 
 class CurrentStockPriceInput(BaseModel):
     """Inputs for get_current_stock_price"""

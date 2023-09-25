@@ -4,23 +4,30 @@
 
 from abc import ABC, abstractmethod
 from typing import Optional
+
 from src.domain.entities.window import Window
 
 
 class WindowRepositoryInterface(ABC):
-    """ This class is the interface for the WindowRepository
-    """
+    """This class is the interface for the WindowRepository"""
 
     @abstractmethod
     def get(self, window_id: str) -> Optional[Window]:
-        """ Get a Window by id
+        """Get a Window by id
 
         :param window_id: str
         :return: Window
         """
 
     @abstractmethod
-    def create(self, window_id: str, is_muting: bool, agent_language: str, system_message: str, temperature: float) -> Optional[Window]:
+    def create(
+        self,
+        window_id: str,
+        is_muting: bool,
+        agent_language: str,
+        system_message: str,
+        temperature: float,
+    ) -> Optional[Window]:
         """
         Create a new window.
 
@@ -37,7 +44,7 @@ class WindowRepositoryInterface(ABC):
 
     @abstractmethod
     def update(self, window: Window) -> Optional[Window]:
-        """ Save a Window
+        """Save a Window
 
         :param Window: Window
         :return: Window

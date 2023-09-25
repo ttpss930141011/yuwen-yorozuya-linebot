@@ -3,9 +3,8 @@ from typing import Dict, List, TypeVar
 from langchain.schema import BaseChatMessageHistory
 from langchain.schema.messages import BaseMessage
 
-
-KT = TypeVar('KT', bound=str)
-VT = TypeVar('VT', bound=List[BaseMessage])
+KT = TypeVar("KT", bound=str)
+VT = TypeVar("VT", bound=List[BaseMessage])
 
 
 class InMemoryChatDictMessageHistory(BaseChatMessageHistory):

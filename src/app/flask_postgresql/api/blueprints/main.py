@@ -3,11 +3,11 @@
 
 from flask import Blueprint
 
-blueprint = Blueprint('main', __name__)
+blueprint = Blueprint("main", __name__)
 
 
-@blueprint.route('/', methods=["GET"])
+@blueprint.route("/", methods=["GET"])
 def main_blueprint():
     """Function printing python version."""
 
-    return 'OK'
+    return "OK"

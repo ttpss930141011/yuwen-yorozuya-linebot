@@ -1,9 +1,10 @@
 from flask import Flask
+
 from .callback import blueprint as callback_blueprint
 from .main import blueprint as main_blueprint
 
 
-def setup_blueprints(app:Flask) -> None:
+def setup_blueprints(app: Flask) -> None:
     """
     Register the necessary blueprints for the Flask app.
 
@@ -18,4 +19,4 @@ def setup_blueprints(app:Flask) -> None:
     return app
 
 
-__all__ = ['setup_blueprints']
+__all__ = ["setup_blueprints"]

@@ -1,12 +1,11 @@
-from sqlalchemy.orm import DeclarativeBase, sessionmaker, scoped_session
 from sqlalchemy import create_engine
+from sqlalchemy.orm import DeclarativeBase, scoped_session, sessionmaker
 
 from src.app.flask_postgresql.configs import Config
 
 
 class Base(DeclarativeBase):
-    """ Base class for all models
-    """
+    """Base class for all models"""
 
 
 engine = create_engine(
@@ -16,6 +15,6 @@ engine = create_engine(
     max_overflow=Config.SQLALCHEMY_MAX_OVERFLOW,
     pool_recycle=Config.SQLALCHEMY_POOL_RECYCLE,
     pool_timeout=Config.SQLALCHEMY_POOL_TIMEOUT,
-    connect_args={'connect_timeout': 300},
+    connect_args={"connect_timeout": 300},
 )
 Session = scoped_session(sessionmaker(bind=engine))

@@ -3,22 +3,25 @@
 
 from typing import Dict
 
+from langchain.agents import AgentExecutor, OpenAIFunctionsAgent
+from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.memory.chat_memory import BaseChatMemory
-from langchain.chat_models import ChatOpenAI
 from langchain.prompts import MessagesPlaceholder
-from langchain.agents import OpenAIFunctionsAgent, AgentExecutor
-from langchain.schema import SystemMessage, BaseChatMessageHistory
+from langchain.schema import BaseChatMessageHistory, SystemMessage
 
-from src.infrastructure.repositories.message_history.custom_postgres_message_history import CustomPostgresMessageHistory
-from src.interactor.interfaces.repositories.agent_executor_repository import AgentExecutorRepositoryInterface
 from src.app.flask_postgresql.configs import Config
+from src.infrastructure.repositories.message_history.custom_postgres_message_history import (
+    CustomPostgresMessageHistory,
+)
 from src.infrastructure.tools import tools
+from src.interactor.interfaces.repositories.agent_executor_repository import (
+    AgentExecutorRepositoryInterface,
+)
 
 
 class AgentExecutorInMemoryRepository(AgentExecutorRepositoryInterface):
-    """ InMemory Repository for AgentExecutor
-    """
+    """InMemory Repository for AgentExecutor"""
 
     def __init__(self) -> None:
         self._data: Dict[str, AgentExecutor] = {}
@@ -35,7 +38,9 @@ class AgentExecutorInMemoryRepository(AgentExecutorRepositoryInterface):
         """
         return CustomPostgresMessageHistory(window_id=window_id)
 
-    def _create_memory(self, memory_key: str, chat_memory: BaseChatMessageHistory) -> BaseChatMemory:
+    def _create_memory(
+        self, memory_key: str, chat_memory: BaseChatMessageHistory
+    ) -> BaseChatMemory:
         """
         Creates a new chat memory with the given memory key and chat memory.
 
@@ -47,13 +52,17 @@ class AgentExecutorInMemoryRepository(AgentExecutorRepositoryInterface):
             BaseChatMemory: The newly created chat memory.
         """
         return ConversationBufferWindowMemory(
-            memory_key=memory_key,
-            chat_memory=chat_memory,
-            return_messages=True,
-            k=10
+            memory_key=memory_key, chat_memory=chat_memory, return_messages=True, k=10
         )
 
-    def _create_agent(self, system_message: str,  agent_language: str, temperature: float, memory_key: str, tools: list) -> OpenAIFunctionsAgent:
+    def _create_agent(
+        self,
+        system_message: str,
+        agent_language: str,
+        temperature: float,
+        memory_key: str,
+        tools: list,
+    ) -> OpenAIFunctionsAgent:
         """
         Creates an instance of the OpenAIFunctionsAgent class.
 
@@ -66,18 +75,18 @@ class AgentExecutorInMemoryRepository(AgentExecutorRepositoryInterface):
         Returns:
             OpenAIFunctionsAgent: An instance of the OpenAIFunctionsAgent class.
         """
-        llm = ChatOpenAI(temperature=temperature, model='gpt-3.5-turbo-0613')
+        llm = ChatOpenAI(temperature=temperature, model="gpt-3.5-turbo-0613")
         system_message = SystemMessage(content=system_message)
-        system_language = SystemMessage(
-            content=f"Normally, try to answer in {agent_language}")
+        system_language = SystemMessage(content=f"Normally, try to answer in {agent_language}")
         prompt = OpenAIFunctionsAgent.create_prompt(
             system_message=system_message,
-            extra_prompt_messages=[MessagesPlaceholder(
-                variable_name=memory_key), system_language]
+            extra_prompt_messages=[MessagesPlaceholder(variable_name=memory_key), system_language],
         )
         return OpenAIFunctionsAgent(llm=llm, tools=tools, prompt=prompt)
 
-    def _create_agent_executor(self, agent: OpenAIFunctionsAgent, memory: BaseChatMemory, tools: list) -> AgentExecutor:
+    def _create_agent_executor(
+        self, agent: OpenAIFunctionsAgent, memory: BaseChatMemory, tools: list
+    ) -> AgentExecutor:
         """
         Creates an agent executor using the provided agent, memory, and other optional arguments.
 
@@ -98,7 +107,7 @@ class AgentExecutorInMemoryRepository(AgentExecutorRepositoryInterface):
         )
 
     def get(self, window_id: str) -> AgentExecutor:
-        """ Get AgentExecutor by id
+        """Get AgentExecutor by id
 
         :param window_id: str
         :return: AgentExecutor
@@ -107,13 +116,14 @@ class AgentExecutorInMemoryRepository(AgentExecutorRepositoryInterface):
             return None
         return self._data[window_id]
 
-    def create(self,
-               window_id: str,
-               agent_language: str = Config.CHATBOT_LANGUAGE,
-               system_message: str = Config.CHATBOT_DESCRIPTION,
-               temperature: float = 0,
-               memory_key: str = Config.MEMORY_KEY
-               ) -> AgentExecutor:
+    def create(
+        self,
+        window_id: str,
+        agent_language: str = Config.CHATBOT_LANGUAGE,
+        system_message: str = Config.CHATBOT_DESCRIPTION,
+        temperature: float = 0,
+        memory_key: str = Config.MEMORY_KEY,
+    ) -> AgentExecutor:
         """
         Creates a new AgentExecutor object and stores it in the _data dictionary under the specified window_id.
 
@@ -134,25 +144,20 @@ class AgentExecutorInMemoryRepository(AgentExecutorRepositoryInterface):
         """
 
         chat_memory = self._create_chat_memory(window_id=window_id)
-        memory = self._create_memory(
-            memory_key=memory_key,
-            chat_memory=chat_memory
-        )
+        memory = self._create_memory(memory_key=memory_key, chat_memory=chat_memory)
         agent = self._create_agent(
             system_message=system_message,
             agent_language=agent_language,
             temperature=temperature,
             memory_key=memory_key,
-            tools=tools
+            tools=tools,
         )
-        agent_executor = self._create_agent_executor(
-            agent=agent,
-            memory=memory,
-            tools=tools
-        )
+        agent_executor = self._create_agent_executor(agent=agent, memory=memory, tools=tools)
 
         self._data[window_id] = agent_executor
         return self._data[window_id]
 
-    def update(self, window_id: str, agent_language: str, system_message: str, temperature: float) -> AgentExecutor:
+    def update(
+        self, window_id: str, agent_language: str, system_message: str, temperature: float
+    ) -> AgentExecutor:
         pass

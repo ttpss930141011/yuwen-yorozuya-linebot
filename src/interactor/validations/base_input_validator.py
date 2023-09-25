@@ -3,18 +3,19 @@
 
 
 from typing import Dict
+
 from cerberus import Validator  # type: ignore
 
 
 class BaseInputValidator:
-    """ This class provides the base class for input validation
-    """
+    """This class provides the base class for input validation"""
+
     def __init__(self, data: Dict[str, str]):
         self.data = data
         self.errors: Dict = {}
 
     def verify(self, schema: Dict) -> None:
-        """ Validates the input data against the provided schema
+        """Validates the input data against the provided schema
         :param schema: The schema to validate against
         :return: None
         :raises ValueError: If the input data is invalid.

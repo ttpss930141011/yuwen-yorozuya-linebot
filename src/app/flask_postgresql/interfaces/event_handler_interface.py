@@ -4,10 +4,9 @@
 from abc import ABC, abstractmethod
 
 
-
 class EventHandlerInterface(ABC):
-    """ This class is the interface for the Line Event Handler class
-    """
+    """This class is the interface for the Line Event Handler class"""
+
     @abstractmethod
     def get_event_info(self, event) -> None:
         """
@@ -19,9 +18,9 @@ class EventHandlerInterface(ABC):
         Returns:
             None
         """
-        
+
     @abstractmethod
     def execute(self) -> None:
-        """ Executes the handler
+        """Executes the handler
         :returns None
         """
