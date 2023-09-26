@@ -3,20 +3,23 @@
 <img src="./static/images/Logo.png" width="100" />
 <br>LangChain-LineBot
 </h1>
-<h3>◦ Building a customize LangChain Linebot for everyone.</h3>
-<h3>◦ Developed with the software and tools listed below.</h3>
+<h3>◦ Building a customize AI-assistant Linebot for everyone.</h3>
+<h3>◦ Clean Architecture provides a testable, maintainable, and scalable app.</h3>
 
 <p align="center">
 <img src="https://img.shields.io/badge/OpenAI-412991.svg?style&logo=OpenAI&logoColor=white" alt="OpenAI" />
 <img src="https://img.shields.io/badge/LangChain-FFFFFF.svg?style&logo=LangChain&logoColor=white" alt="OpenAI" />
 <img src="https://img.shields.io/badge/Python-3776AB.svg?style&logo=Python&logoColor=white" alt="Python" />
+<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style&logo=Pytest&logoColor=white" alt="Pytest" />
 <img src="https://img.shields.io/badge/LINE-00C300.svg?style&logo=LINE&logoColor=white" alt="LINE" />
 <img src="https://img.shields.io/badge/Flask-000000.svg?style&logo=Flask&logoColor=white" alt="Flask" />
 </p>
 <img src="https://img.shields.io/github/languages/top/ttpss930141011/LangChain-LineBot?style&color=5D6D7E" alt="GitHub top language" />
+<img src="https://ttpss930141011.github.io/LangChain-LineBot/coverage.svg" alt="Repo coverage" />
 <img src="https://img.shields.io/github/languages/code-size/ttpss930141011/LangChain-LineBot?style&color=5D6D7E" alt="GitHub code size in bytes" />
 <img src="https://img.shields.io/github/commit-activity/m/ttpss930141011/LangChain-LineBot?style&color=5D6D7E" alt="GitHub commit activity" />
 <img src="https://img.shields.io/github/license/ttpss930141011/LangChain-LineBot?style&color=5D6D7E" alt="GitHub license" />
+
 </div>
 
 ---
@@ -24,12 +27,9 @@
 ## 📒 Table of Contents
 - [📒 Table of Contents](#-table-of-contents)
 - [📍 Overview](#-overview)
-- [📂 Project Structure](#project-structure)
-- [🧩 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
 - [👨‍🏫 Demo](#-demo)
 - [🔜 Next](#-next)
-- [🐛 Known issues](#-known-issues)
 - [📄 License](#-license)
 
 ---
@@ -37,51 +37,31 @@
 
 ## 📍 Overview
 
-The LangChain-LineBot project is a chat interface based on LINE that communicates in Traditional Chinese. It utilizes a chat agent chain with features like chat memory, language model, system message, and prompt messages. It allows users to have conversations, store chat history, and has limitations on iterations. 
+The LangChain-LineBot project is a feature-rich chat interface built on the LINE platform that enables seamless and interactive communication. This project has undergone a significant transformation, adopting the principles of Clean Architecture, which has not only enhanced its maintainability but also unlocked several key benefits.
 
-The project uses the LINE messaging API for a seamless experience and aims to provide an efficient and personalized interface for users to interact in their preferred language.
+- <b>Cleaner Code</b>: The separation of concerns and modularization result in cleaner, more organized code, making it easier to read and maintain.
 
----
+- <b>Testability</b>: With well-defined interfaces and dependency injection, unit testing becomes straightforward, ensuring the reliability of the codebase.
 
+- <b>Scalability</b>: The architecture's modular nature allows for easy expansion and addition of new features, making the project adaptable to future requirements.
 
-## 📂 Project Structure
+- <b>Maintainability</b>: Clean Architecture promotes code maintainability, reducing the risk of technical debt and simplifying future updates and enhancements.
 
-```
-📦 
-├─ .gitignore
-├─ agent_chain.py
-├─ app.py
-├─ config.py
-├─ line_bot.py
-├─ logs
-│  └─ bot_errors.log
-├─ requirements.txt
-├─ tools
-│  ├─ __init__.py
-│  └─ stock.py
-└─ utils
-   └─ error_logger.py
-```
+## ✨ Feature
 
+LangChain-LineBot serves as a dynamic chat agent chain with an array of essential features including:
 
----
+### Chat Memory
+The ability to remember and recall previous conversations, providing a personalized user experience. Default is PostgreSQL. You can use your memory repositorios by implementing the <b>BaseChatMemory</b> interface.
 
-## 🧩 Modules
+### Language Model
 
-<details closed><summary>Root</summary>
+The project leverages the LangChain framework, a powerful tool designed to simplify the integration of language models into applications. Specifically, LangChain is used in this project to seamlessly connect with the OpenAI Language Model (LLM), allowing developers to focus on application development without getting bogged down in the complexities of language processing.
 
-| File                                                                                                   | Summary                                                                                                                                                                                                                                                                                                                                                                                                         |
-| ---                                                                                                    | ---                                                                                                                                                                                                                                                                                                                                                                                                             |
-| [agent_chain.py](https://github.com/ttpss930141011/LangChain-LineBot/blob/main/agent_chain.py)         | The code initializes LangChain services by creating a chat agent chain. This chain consists of a chat memory, a language model, a system message, and prompt messages. The agent chain is responsible for handling chat conversations, using tools when needed, and providing responses in Traditional Chinese. The code allows for storing chat history and limits the number of iterations in a conversation. |
-| [app.py](https://github.com/ttpss930141011/LangChain-LineBot/blob/main/app.py)                         | This code defines a Flask server that acts as the backend for a LINE bot. It handles incoming callbacks and routes them to a handler. It also includes error handling for 404 and 500 errors. The server runs on a specified port and can be run in debug mode if required.                                                                                                                                     |
-| [config.py](https://github.com/ttpss930141011/LangChain-LineBot/blob/main/config.py)                   | This code loads environment variables and assigns them to corresponding variables to be used in the application.                                                                                                                                                                                                                                                                                                |
-| [line_bot.py](https://github.com/ttpss930141011/LangChain-LineBot/blob/main/line_bot.py)               | The code sets up a Line Bot webhook handler and configuration for channel access. It creates an agent chain dictionary to keep track of user sessions. It handles text and file messages received through the Line Bot webhook. It creates an agent chain for each user session and sends a reply message based on the user input, using the Line Bot messaging API.                                                                                                                                                                                                     |
-| [tools/**](https://github.com/ttpss930141011/LangChain-LineBot/tree/main/tools)               | The code in tools is used on [Function Call](https://openai.com/blog/function-calling-and-other-api-updates).   |
-| [error_logger.py](https://github.com/ttpss930141011/LangChain-LineBot/blob/main/utils\error_logger.py) | This code sets up error logging functionality. It configures a logger for recording errors and defines a file handler to write errors to a log file. It also creates a formatter to format the log entries and adds the handler to the logger. The purpose is to capture and store all error messages.                                                                                                          |
+### System Messages
 
-</details>
+You can custom your LineBot's personality by setting the <b>CHATBOT_DESCRIPTION</b> in .env file.
 
----
 
 ## 🚀 Getting Started
 
@@ -89,15 +69,26 @@ The project uses the LINE messaging API for a seamless experience and aims to pr
 
 Before you begin, ensure that you have the following prerequisites installed:
 
-1. Setup LINE Channel to get CHANNEL_SECRET and CHANNEL_ACCESS_TOKEN 
+1. Setup LINE Channel to get CHANNEL_SECRET and CHANNEL_ACCESS_TOKEN
     > ref:  [Day 12：帶著聊天機器人來到 LINE](https://ithelp.ithome.com.tw/articles/10221681)
 2. Get SerpAPI Token
     > ref: [SerpAPI](https://serpapi.com/dashboard)
 3. Get OpenAI Token
     > ref: [OpenAI-API-keys](https://platform.openai.com/account/api-keys)
 4. Setup PostgreSQL and get connect string
-    > You can use some PostgreSQL provider like: ElephantSQL, Vercel Postgre...etc.  
+    > You can use some PostgreSQL provider like: ElephantSQL, Vercel Postgre...etc.
     I recommand [Zeabur](https://zeabur.com/zh-TW) for a web-hosting PostgreSQL because you can create a project and run the LineBot and PostgreSQL in the same platform. So fast! So easy! So convenient!
+5. Setup environment variables by creating a <b>.env</b> file
+    ```
+    CHANNEL_SECRET=
+    CHANNEL_ACCESS_TOKEN=
+    OPENAI_API_KEY=
+    PORT=
+    SERPAPI_API_KEY=
+    SQLALCHEMY_DATABASE_URI=
+    CHATBOT_DESCRIPTION=
+    CHATBOT_LANGUAGE=
+    ```
 
 ### 📦 Installation
 
@@ -135,14 +126,14 @@ python app.py
 
 1. Use ngrok
 
-    ``` 
+    ```
     ngrok http {PORT}
     ```
 
 2. Then put the forwarding url to LineBot Messaging API Webhook url settings.
 
     <img align=center src="static\images\ngrok.png" ></img>
-    
+
     <img align=center src="static\images\webhook.png" ></img>
 
 
@@ -176,23 +167,49 @@ python app.py
 
 ---
 
+
+## Note
+
+### Clean Architecture Transformation
+In the quest for code quality, maintainability, and scalability, the LangChain-LineBot project has embraced Clean Architecture principles. Here's how Clean Architecture has influenced this project's development:
+
+- <b>Flask + LINE SDK</b>: The project continues to utilize Flask and the LINE SDK as its core technologies, but the key transformation lies in the architecture.
+
+- <b>Blueprints as Handlers</b>: In the Clean Architecture paradigm, message handlers are treated as blueprints. This approach decouples the handling of messages from the application's core logic, making the codebase more modular and maintainable.
+
+- <b>Controller and Usecase Separation</b>: The traditional controller and use case layers have been restructured, promoting a separation of concerns. Controllers are responsible for handling incoming requests and orchestrating the flow, while use cases encapsulate the application's business logic.
+
+- <b>Dependency Injection</b>: Extensive use of dependency injection enhances code cleanliness, testability, and extensibility. Dependencies are injected into components, reducing tight coupling and simplifying unit testing.
+
+### Final
+
+I am used to implement 3-tier architecture in my project. Accidentally, I heard a sharing by a senior software engineer in development community. He was talking about what is the adventages he felt when he migrated the application to the another application from other company.
+
+| 3-tier architecture | Clean architecture |
+|--|--|
+|![3-tier architecture](./static/images/Overview_of_a_three-tier_application_vectorVersion.svg)|![Clean architecture](./static/images/CA.png)|
+
+I started to study what is the Clean Architectre by reading two books "[Clean Architecture: A Craftsman's Guide to Software Structure and Design](https://a.co/d/b6AwM2R)" and "[Architecture Patterns with Python: Enabling Test-Driven Development, Domain-Driven Design, and Event-Driven Microservices](https://a.co/d/dhmMraK)".
+
+Although the project I made in formar job didn't have too complicated dependency like "Big Ball of yarn", I can imagine it will be annoying if I gonna change infrustructure or framework one day. In the project, I wrote many interfaces to make dependency to easily inject. I think a large number of dependency inversions is one of the important aspects why Clean Architecture is attractive.
+
+<img src="./static/images/BigBallofyarn.png" height=300></img>
+
+Finally, I will continue to delve deeper into Clean Architecture, especially with regards to the implementation of entities and the definition of value objects. I'm not yet entirely familiar with these concepts in the context of this project, so my plan is to further study and explore them in greater detail.
+
+---
+
 ## 🔜 Next
 
 The following is todo-list on LineBot:
 
-```
-1. Implement muting and unmuting functions
-2. Give YouTube link and return video summary
-3. Give the file and start the document conversation
-```
+- [x] Implement muting and unmuting functions
+- [ ] Invoke LineBot by calling a key word.(it's too noisy in group.)
+- [ ] Give YouTube link and return video summary
+- [ ] Give the file and start the document conversation
 
----
 
-## 🐛 Known issues
 
-```
-1. Now we use `PostgresChatMessageHistory` to remember session id. When the new session chat to LineBot, we will create a new connection to PostgreSQL. One day, we will encounter the problem of excessive number of connections
-```
 
 ---
 
