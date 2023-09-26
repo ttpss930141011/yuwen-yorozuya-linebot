@@ -1,5 +1,7 @@
 from unittest import mock
 
+from linebot.v3.messaging.models import TextMessage
+
 from src.interactor.dtos.event_dto import EventInputDto, EventOutputDto
 from src.interactor.interfaces.logger.logger import LoggerInterface
 from src.interactor.interfaces.presenters.message_reply_presenter import EventPresenterInterface
@@ -35,7 +37,7 @@ EventInputDtoValidator"
     logger_mock.log_info.assert_called_once_with("Create reply successfully")
 
     output_dto = EventOutputDto(
-        window=fixture_window, user_input="Test input", response="Test output"
+        window=fixture_window, user_input="Test input", response=[TextMessage(text="Test output")]
     )
     presenter_mock.present.assert_called_once_with(output_dto)
     assert result == "Test output"
@@ -69,7 +71,7 @@ EventInputDtoValidator"
     logger_mock.log_info.assert_called_once_with("Create reply successfully")
 
     output_dto = EventOutputDto(
-        window=fixture_window, user_input="Test input", response="Test output"
+        window=fixture_window, user_input="Test input", response=[TextMessage(text="Test output")]
     )
     presenter_mock.present.assert_called_once_with(output_dto)
     assert result == "Test output"
@@ -104,7 +106,7 @@ EventInputDtoValidator"
     logger_mock.log_info.assert_called_once_with("Create reply successfully")
 
     output_dto = EventOutputDto(
-        window=fixture_window, user_input="Test input", response="靜悄悄的，什麼都沒有發生。"
+        window=fixture_window, user_input="Test input", response=[TextMessage(text="靜悄悄的，什麼都沒有發生。")]
     )
     presenter_mock.present.assert_called_once_with(output_dto)
     assert result == "Test output"
