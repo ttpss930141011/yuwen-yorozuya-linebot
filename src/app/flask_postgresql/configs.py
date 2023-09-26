@@ -24,7 +24,7 @@ class Config(object):
     SERVICE_PREFIX = os.environ.get("SERVICE_PREFIX", "")
     CHANNEL_SECRET = os.getenv("CHANNEL_SECRET", "")
     CHANNEL_ACCESS_TOKEN = os.getenv("CHANNEL_ACCESS_TOKEN", "")
-    PORT = os.getenv("PORT", 5000)
+    PORT = int(os.getenv("PORT", 5000))
     SERPAPI_API_KEY = os.getenv("SERPAPI_API_KEY", "")
     CHATBOT_DESCRIPTION = os.getenv("CHATBOT_DESCRIPTION", "")
     CHATBOT_LANGUAGE = os.getenv("CHATBOT_LANGUAGE", "")

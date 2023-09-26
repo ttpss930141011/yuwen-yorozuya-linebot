@@ -3,6 +3,7 @@ from langchain.utilities import SerpAPIWrapper
 
 from src.app.flask_postgresql.configs import Config
 
+from .google_calendar import GoogleCalendarTool
 from .stock import CurrentStockPriceTool, StockPerformanceTool
 
 # initialize LangChain services
@@ -16,4 +17,5 @@ tools = [
     ),
     CurrentStockPriceTool(),
     StockPerformanceTool(),
+    GoogleCalendarTool(),
 ]
