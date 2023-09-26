@@ -29,6 +29,7 @@
 - [📍 Overview](#-overview)
 - [🚀 Getting Started](#-getting-started)
 - [👨‍🏫 Demo](#-demo)
+- [📝 Note](#-note)
 - [🔜 Next](#-next)
 - [📄 License](#-license)
 
@@ -51,12 +52,17 @@ The LangChain-LineBot project is a feature-rich chat interface built on the LINE
 
 LangChain-LineBot serves as a dynamic chat agent chain with an array of essential features including:
 
-### Chat Memory
-The ability to remember and recall previous conversations, providing a personalized user experience. Default is PostgreSQL. You can use your memory repositorios by implementing the <b>BaseChatMemory</b> interface.
+### OpenAI Function Calling
+
+In addition to its core features, this project implements OpenAI Function Calling. This means that developers can encapsulate desired services as functions and incorporate them into the chatbot through the LangChain agent. We can implement this in `src\infrastructure\tools\`.
 
 ### Language Model
 
 The project leverages the LangChain framework, a powerful tool designed to simplify the integration of language models into applications. Specifically, LangChain is used in this project to seamlessly connect with the OpenAI Language Model (LLM), allowing developers to focus on application development without getting bogged down in the complexities of language processing.
+
+### Chat Memory
+The ability to remember and recall previous conversations, providing a personalized user experience. Default is PostgreSQL. You can use your memory repositorios by implementing the <b>BaseChatMemory</b> interface.
+
 
 ### System Messages
 
@@ -153,22 +159,15 @@ python app.py
 ---
 ## 👨‍🏫 Demo
 
-#### Keep remember
+|Keep remember|Search information on the internet|Group assistant|
+|--|--|--|
+|![demo1](./static/images/demo1.jpg)|![demo2](./static/images/demo2.jpg)|![group](./static/images/group.jpg)|
 
-![demo1](./static/images/demo1.jpg)
-
-#### Search information on the internet
-
-![demo2](./static/images/demo2.jpg)
-
-#### Group assistant
-
-![group](./static/images/group.jpg)
 
 ---
 
 
-## Note
+## 📝 Note
 
 ### Clean Architecture Transformation
 In the quest for code quality, maintainability, and scalability, the LangChain-LineBot project has embraced Clean Architecture principles. Here's how Clean Architecture has influenced this project's development:
