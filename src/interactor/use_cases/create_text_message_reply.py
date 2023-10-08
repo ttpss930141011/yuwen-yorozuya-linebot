@@ -1,10 +1,6 @@
 """ This module is responsible for creating a new window.
 """
-from typing import List
-
 from langchain.agents import AgentExecutor
-from linebot.v3.messaging.models import TextMessage
-from linebot.v3.messaging.models.message import Message
 
 from src.interactor.dtos.event_dto import EventInputDto, EventOutputDto
 from src.interactor.interfaces.logger.logger import LoggerInterface
@@ -47,30 +43,15 @@ class CreateTextMessageReplyUseCase:
             )
         return agent_executor
 
-    def execute(self, input_dto: EventInputDto):
-        """
-        Executes the given event input DTO.
-
-        Args:
-            input_dto (EventInputDto): The event input DTO containing the necessary information for execution.
-
-        Returns:
-            EventOutputDto: The output DTO containing the result of the execution.
-
-        Raises:
-            None.
-        """
+    def execute(self, input_dto: EventInputDto) -> str:
         validator = EventInputDtoValidator(input_dto.to_dict())
         validator.validate()
 
-        response: List[Message] = []
-
         if input_dto.window.get("is_muting") is True:
-            response.append(TextMessage(text="靜悄悄的，什麼都沒有發生。"))
+            response = "靜悄悄的，什麼都沒有發生。"
         else:
             agent_executor = self._get_agent_executor(input_dto)
-            result = agent_executor.run(input=input_dto.user_input)
-            response.append(TextMessage(text=result))
+            response = agent_executor.run(input=input_dto.user_input)
 
         output_dto = EventOutputDto(
             window=input_dto.window,

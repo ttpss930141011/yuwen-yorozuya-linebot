@@ -1,10 +1,6 @@
 """ Module for the EventPresenter
 """
 
-from typing import List
-
-from linebot.v3.messaging.models.message import Message
-
 from src.interactor.dtos.event_dto import EventOutputDto
 from src.interactor.interfaces.presenters.message_reply_presenter import EventPresenterInterface
 
@@ -12,7 +8,7 @@ from src.interactor.interfaces.presenters.message_reply_presenter import EventPr
 class EventPresenter(EventPresenterInterface):
     """Class for the EventPresenter"""
 
-    def present(self, output_dto: EventOutputDto) -> List[Message]:
+    def present(self, output_dto: EventOutputDto) -> str:
         """
         Present the output DTO.
 
