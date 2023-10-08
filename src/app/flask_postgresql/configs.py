@@ -26,6 +26,7 @@ class Config(object):
     CHANNEL_ACCESS_TOKEN = os.getenv("CHANNEL_ACCESS_TOKEN", "")
     PORT = int(os.getenv("PORT", 5000))
     SERPAPI_API_KEY = os.getenv("SERPAPI_API_KEY", "")
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
     CHATBOT_DESCRIPTION = os.getenv("CHATBOT_DESCRIPTION", "")
     CHATBOT_LANGUAGE = os.getenv("CHATBOT_LANGUAGE", "")
     MEMORY_KEY = "chat_history"
