@@ -5,7 +5,7 @@ from src.interactor.dtos.window_dtos import GetWindowInputDto, WindowOutputDto
 from src.interactor.interfaces.logger.logger import LoggerInterface
 from src.interactor.interfaces.presenters.window_presenter import WindowPresenterInterface
 from src.interactor.interfaces.repositories.window_repository import WindowRepositoryInterface
-from src.interactor.use_cases import get_window
+from src.interactor.use_cases.window import get_window
 
 
 def test_get_window(mocker, fixture_window):
@@ -20,7 +20,7 @@ def test_get_window(mocker, fixture_window):
     repository_mock = mocker.patch.object(WindowRepositoryInterface, "get")
 
     input_dto_validator_mock = mocker.patch(
-        "src.interactor.use_cases.get_window.\
+        "src.interactor.use_cases.window.get_window.\
 GetWindowInputDtoValidator"
     )
     logger_mock = mocker.patch.object(LoggerInterface, "log_info")

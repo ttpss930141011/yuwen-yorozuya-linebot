@@ -24,7 +24,7 @@ class GetWindowUseCase:
         self.repository = repository
         self.logger = logger
 
-    def execute(self, input_dto: GetWindowInputDto) -> Dict:
+    def execute(self, input_dto: GetWindowInputDto) -> Dict | None:
         """This method is responsible for creating a new window.
         :param input_dto: The input data transfer object.
         :type input_dto: GetWindowInputDto

@@ -3,7 +3,9 @@
 
 
 from dataclasses import asdict, dataclass
-from typing import Dict
+from typing import Dict, List
+
+from linebot.v3.messaging.models.message import Message
 
 
 @dataclass
@@ -24,7 +26,7 @@ class EventOutputDto:
 
     window: Dict
     user_input: str
-    response: str
+    response: List[Message]
 
     def to_dict(self):
         """Convert data into dictionary"""

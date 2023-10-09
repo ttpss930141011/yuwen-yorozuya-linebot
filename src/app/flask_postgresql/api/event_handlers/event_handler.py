@@ -17,8 +17,8 @@ from src.infrastructure.repositories.window.window_postgresql_repository import 
 from src.interactor.dtos.event_dto import EventInputDto
 from src.interactor.dtos.window_dtos import CreateWindowInputDto, GetWindowInputDto
 from src.interactor.interfaces.logger.logger import LoggerInterface
-from src.interactor.use_cases.create_window import CreateWindowUseCase
-from src.interactor.use_cases.get_window import GetWindowUseCase
+from src.interactor.use_cases.window.create_window import CreateWindowUseCase
+from src.interactor.use_cases.window.get_window import GetWindowUseCase
 
 
 class EventHandler(EventHandlerInterface):
