@@ -1,16 +1,18 @@
+from typing import List
+
 from linebot.v3.messaging import (
     ApiClient,
     Configuration,
     MessagingApi,
     ReplyMessageRequest,
-    TextMessage,
 )
 from linebot.v3.messaging.api_response import ApiResponse
+from linebot.v3.messaging.models.message import Message
 
 
-def create_response(configuration: Configuration, reply_token: str, *results) -> ApiResponse:
-    messages = [TextMessage(text=result) for result in results]
-
+def create_response(
+    configuration: Configuration, reply_token: str, messages: List[Message]
+) -> ApiResponse:
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
 

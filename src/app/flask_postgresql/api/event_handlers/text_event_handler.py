@@ -4,7 +4,7 @@
 from src.app.flask_postgresql.api.event_handlers.event_handler import EventHandler
 from src.app.flask_postgresql.presenters.message_reply_presenter import EventPresenter
 from src.interactor.dtos.event_dto import EventInputDto
-from src.interactor.use_cases.create_text_message_reply import CreateTextMessageReplyUseCase
+from src.interactor.use_cases.message.create_message_reply import CreateMessageReplyUseCase
 
 
 class TextEventHandler(EventHandler):
@@ -15,7 +15,7 @@ class TextEventHandler(EventHandler):
 
     def execute(self):
         presenter = EventPresenter()
-        use_case = CreateTextMessageReplyUseCase(
+        use_case = CreateMessageReplyUseCase(
             presenter=presenter,
             repository=self.agent_repository,
             logger=self.logger,

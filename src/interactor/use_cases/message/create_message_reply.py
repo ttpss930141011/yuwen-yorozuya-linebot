@@ -1,17 +1,16 @@
 """ This module is responsible for creating a new window.
 """
-from langchain.agents import AgentExecutor
-
 from src.interactor.dtos.event_dto import EventInputDto, EventOutputDto
 from src.interactor.interfaces.logger.logger import LoggerInterface
 from src.interactor.interfaces.presenters.message_reply_presenter import EventPresenterInterface
 from src.interactor.interfaces.repositories.agent_executor_repository import (
     AgentExecutorRepositoryInterface,
 )
+from src.interactor.use_cases.message.cor import ReplyMessagesCOR
 from src.interactor.validations.event_input_validator import EventInputDtoValidator
 
 
-class CreateTextMessageReplyUseCase:
+class CreateMessageReplyUseCase:
     """This class is responsible for creating a new window."""
 
     def __init__(
@@ -24,34 +23,25 @@ class CreateTextMessageReplyUseCase:
         self.repository = repository
         self.logger = logger
 
-    def _get_agent_executor(self, input_dto: EventInputDto) -> AgentExecutor:
+    def execute(self, input_dto: EventInputDto):
         """
-        Retrieves the agent executor associated with the current window.
+        Executes the given event input DTO.
 
-        :param None: This function does not take any parameters.
-        :return: None
+        Args:
+            input_dto (EventInputDto): The event input DTO containing the necessary information for execution.
+
+        Returns:
+            EventOutputDto: The output DTO containing the result of the execution.
+
+        Raises:
+            None.
         """
-
-        window_id = input_dto.window.get("window_id")
-
-        agent_executor = self.repository.get(
-            window_id=window_id,
-        )
-        if agent_executor is None:
-            agent_executor = self.repository.create(
-                window_id=window_id,
-            )
-        return agent_executor
-
-    def execute(self, input_dto: EventInputDto) -> str:
         validator = EventInputDtoValidator(input_dto.to_dict())
         validator.validate()
 
-        if input_dto.window.get("is_muting") is True:
-            response = "靜悄悄的，什麼都沒有發生。"
-        else:
-            agent_executor = self._get_agent_executor(input_dto)
-            response = agent_executor.run(input=input_dto.user_input)
+        reply_messages_cor = ReplyMessagesCOR()
+
+        response = reply_messages_cor.handle(input_dto, self.repository)
 
         output_dto = EventOutputDto(
             window=input_dto.window,
