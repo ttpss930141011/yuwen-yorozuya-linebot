@@ -1,7 +1,7 @@
 <div align="center">
 <h1 align="center">
 <img src="./static/images/Logo.png" width="100" />
-<br>LangChain-LineBot
+<br>Yuwen yorozuya LineBot
 </h1>
 <h3>◦ Building a customize AI-assistant Linebot for everyone.</h3>
 <h3>◦ Clean Architecture provides a testable, maintainable, and scalable app.</h3>
@@ -14,15 +14,24 @@
 <img src="https://img.shields.io/badge/LINE-00C300.svg?style&logo=LINE&logoColor=white" alt="LINE" />
 <img src="https://img.shields.io/badge/Flask-000000.svg?style&logo=Flask&logoColor=white" alt="Flask" />
 </p>
-<img src="https://img.shields.io/github/languages/top/ttpss930141011/LangChain-LineBot?style&color=5D6D7E" alt="GitHub top language" />
-<img src="https://ttpss930141011.github.io/LangChain-LineBot/coverage.svg" alt="Repo coverage" />
-<img src="https://img.shields.io/github/languages/code-size/ttpss930141011/LangChain-LineBot?style&color=5D6D7E" alt="GitHub code size in bytes" />
-<img src="https://img.shields.io/github/commit-activity/m/ttpss930141011/LangChain-LineBot?style&color=5D6D7E" alt="GitHub commit activity" />
-<img src="https://img.shields.io/github/license/ttpss930141011/LangChain-LineBot?style&color=5D6D7E" alt="GitHub license" />
+<img src="https://img.shields.io/github/languages/top/ttpss930141011/yuwen-yorozuya-linebot?style&color=5D6D7E" alt="GitHub top language" />
+<img src="https://ttpss930141011.github.io/yuwen-yorozuya-linebot/coverage.svg" alt="Repo coverage" />
+<img src="https://img.shields.io/github/languages/code-size/ttpss930141011/yuwen-yorozuya-linebot?style&color=5D6D7E" alt="GitHub code size in bytes" />
+<img src="https://img.shields.io/github/commit-activity/m/ttpss930141011/yuwen-yorozuya-linebot?style&color=5D6D7E" alt="GitHub commit activity" />
+<img src="https://img.shields.io/github/license/ttpss930141011/yuwen-yorozuya-linebot?style&color=5D6D7E" alt="GitHub license" />
 
 </div>
 
----
+## 🏠 Yorozuya
+
+"Yorozuya" is a fictional establishment in the Japanese manga and anime series "Gintama", operated by the protagonist,
+Gintoki Sakata. Yorozuya is a business that handles various tasks and requests, ranging from finding lost items to
+resolving disputes.
+
+The project was named "Yorozuya" because it was hoped that the LineBot would make it easier for Line users to access
+OpenAPI to solve problems, and also to commemorate the end of Gintama.
+
+![Yorozuya](./static/images/Yorozuya.jpg)
 
 ## 📒 Table of Contents
 
@@ -34,11 +43,9 @@
 - [🔜 Next](#-next)
 - [📄 License](#-license)
 
----
-
 ## 📍 Overview
 
-The LangChain-LineBot project is a feature-rich chat interface built on the LINE platform that enables seamless and
+The yuwen-yorozuya-linebot project is a feature-rich chat interface built on the LINE platform that enables seamless and
 interactive communication. This project has undergone a significant transformation, adopting the principles of Clean
 Architecture, which has not only enhanced its maintainability but also unlocked several key benefits.
 
@@ -56,7 +63,7 @@ Architecture, which has not only enhanced its maintainability but also unlocked 
 
 ## ✨ Feature
 
-LangChain-LineBot serves as a dynamic chat agent chain with an array of essential features including:
+yuwen-yorozuya-linebot serves as a dynamic chat agent chain with an array of essential features including:
 
 ### OpenAI Function Calling
 
@@ -110,7 +117,7 @@ Before you begin, ensure that you have the following prerequisites installed:
 
 ### 📦 Installation
 
-1. Clone the LangChain-LineBot repository:
+1. Clone the yuwen-yorozuya-linebot repository:
 
 ```sh
 git clone https://github.com/ttpss930141011/yuwen-yorozuya-linebot.git
@@ -162,11 +169,14 @@ python app.py
 
    <img src="static\images\newproject.png" width=150></img>
 
-2. New services
+2. New services to add PostgreSQL and Git repository
 
    <img align=center src="static\images\newservice.png" width=150></img>
    <img align=center src="static\images\servicetype.png" width=300></img>
-3. Setup environment vairables
+3. Public the networking
+
+   <img align=center src="static\images\public_networking.png" ></img>
+4. Setup environment variables
 
    <img align=center src="static\images\complete.png" ></img>
 
@@ -174,7 +184,7 @@ python app.py
 
 ## 👨‍🏫 Demo
 
-| Keep remember                       | Search information on the internet  | Group assistant                     |
+| Keeping the Memory Alive            | Search information on the internet  | Group assistant                     |
 |-------------------------------------|-------------------------------------|-------------------------------------|
 | ![demo1](./static/images/demo1.jpg) | ![demo2](./static/images/demo2.jpg) | ![group](./static/images/group.jpg) |
 
@@ -184,7 +194,7 @@ python app.py
 
 ### Clean Architecture Transformation
 
-In the quest for code quality, maintainability, and scalability, the LangChain-LineBot project has embraced Clean
+In the quest for code quality, maintainability, and scalability, the yuwen-yorozuya-linebot project has embraced Clean
 Architecture principles. Here's how Clean Architecture has influenced this project's development:
 
 - <b>Flask + LINE SDK</b>: The project continues to utilize Flask and the LINE SDK as its core technologies, but the key
