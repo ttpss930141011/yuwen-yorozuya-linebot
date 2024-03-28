@@ -5,51 +5,54 @@ concurrency:
   cancel-in-progress: true
 
 on:
-    push:
-        branches: ["main"]
-    pull_request:
-      branches:
-        - '*'
-    workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches:
+      - '*'
+  workflow_dispatch:
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-        steps:
-            - uses: actions/checkout@v3
-            - name: Set up Python 3.10
-              uses: actions/setup-python@v3
-              with:
-                  python-version: "3.10"
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.11.8"
 
-            - name: Cache dependencies
-              id: cache
-              uses: actions/cache@v3
-              with:
-                path: ${{ env.pythonLocation }}
-                key: ${{ env.pythonLocation }}-pip-${{ hashFiles('requirements.txt') }}
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ env.pythonLocation }}-pip-${{ hashFiles('pyproject.toml') }}
 
-            - name: Install dependencies
-              run: |
-                  python -m pip install --upgrade pip
-                  pip install pytest pytest-cov pytest-mock pytest-coverage
-                  if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Install poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-            - name: Test with pytest
-              run: |
-                pytest --cov
+      - name: Install dependencies
+        run: |
+          poetry install
 
-            - name: Creating coverage folder
-              run: |
-                mkdir -p coverage
+      - name: Test with pytest
+        run: |
+          poetry run pytest --cov=src --cov-report=xml
 
-            - name: Coverage Bagdge
-              uses: tj-actions/coverage-badge-py@v1.8
-              with:
-                output: coverage/coverage.svg
+      - name: Creating coverage folder
+        run: |
+          mkdir -p coverage
 
-            - name: Publish coverage report to coverage-badge branch
-              uses: JamesIves/github-pages-deploy-action@v4
-              with:
-                branch: coverage-badge
-                folder: coverage
+      - name: Coverage Bagdge
+        uses: tj-actions/coverage-badge-py@v1.8
+        with:
+          output: coverage/coverage.svg
+
+      - name: Publish coverage report to coverage-badge branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: coverage-badge
+          folder: coverage
