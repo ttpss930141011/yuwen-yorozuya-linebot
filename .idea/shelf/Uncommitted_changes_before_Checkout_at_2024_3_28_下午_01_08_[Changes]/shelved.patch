@@ -1,0 +1,29 @@
+Index: src/interactor/use_cases/message/cor/__init__.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from typing import List\r\n\r\nfrom linebot.v3.messaging.models.message import Message\r\n\r\nfrom src.interactor.dtos.event_dto import EventInputDto\r\nfrom src.interactor.interfaces.repositories.agent_executor_repository import (\r\n    AgentExecutorRepositoryInterface,\r\n)\r\nfrom src.interactor.use_cases.message.cor.addition_handler import AdditionHandler\r\nfrom src.interactor.use_cases.message.cor.default_handler import DefaultHandler\r\nfrom src.interactor.use_cases.message.cor.muting_handler import MutingHandler\r\n\r\n\r\nclass ReplyMessagesCOR:\r\n    def __init__(self):\r\n        self._chain = MutingHandler(AdditionHandler(DefaultHandler()))\r\n\r\n    def handle(self, input_dto: EventInputDto, repository: AgentExecutorRepositoryInterface):\r\n        response: List[Message] = []\r\n        self._chain.handle(input_dto, repository, response)\r\n        return response\r\n
+===================================================================
+diff --git a/src/interactor/use_cases/message/cor/__init__.py b/src/interactor/use_cases/message/cor/__init__.py
+--- a/src/interactor/use_cases/message/cor/__init__.py	
++++ b/src/interactor/use_cases/message/cor/__init__.py	
+@@ -6,14 +6,18 @@
+ from src.interactor.interfaces.repositories.agent_executor_repository import (
+     AgentExecutorRepositoryInterface,
+ )
++from src.interactor.interfaces.repositories.window_repository import WindowRepositoryInterface
+ from src.interactor.use_cases.message.cor.addition_handler import AdditionHandler
+ from src.interactor.use_cases.message.cor.default_handler import DefaultHandler
+ from src.interactor.use_cases.message.cor.muting_handler import MutingHandler
++from src.interactor.use_cases.message.cor.window_mutable_handler import WindowMutableHandler
+ 
+ 
+ class ReplyMessagesCOR:
+-    def __init__(self):
+-        self._chain = MutingHandler(AdditionHandler(DefaultHandler()))
++    def __init__(self, window_repository: WindowRepositoryInterface):
++        self._chain = MutingHandler(
++            AdditionHandler(WindowMutableHandler(DefaultHandler(), window_repository))
++        )
+ 
+     def handle(self, input_dto: EventInputDto, repository: AgentExecutorRepositoryInterface):
+         response: List[Message] = []
