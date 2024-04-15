@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7ffab47-0e27-47fc-905b-6e3c7fe90ee2" name="Changes" comment="chore: update README.md">
-      <change afterPath="$PROJECT_DIR$/static/images/Yorozuya.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/public_networking.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="e7ffab47-0e27-47fc-905b-6e3c7fe90ee2" name="Changes" comment="fix: fix building failed on railway&#10;&#10;Signed-off-by: Justin Xiao &lt;o927416847@gmail.com&gt;">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024_3_28__01_08__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024_3_28__01_08__Changes_.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,23 +50,23 @@
     <option name="openDirectoriesWithSingleClick" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "development",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -85,7 +83,11 @@
       <option name="presentableId" value="Default" />
       <updated>1711655687988</updated>
       <workItem from="1711655689396" duration="2143000" />
-      <workItem from="1711661538298" duration="6498000" />
+      <workItem from="1711661538298" duration="7786000" />
+      <workItem from="1711922720043" duration="269000" />
+      <workItem from="1711962644346" duration="1126000" />
+      <workItem from="1712043117290" duration="18000" />
+      <workItem from="1713207352392" duration="1161000" />
     </task>
     <task id="LOCAL-00001" summary="fix: fix the deployment failed in Zeabur&#10;&#10;- fix the Python version number as 3.10.12&#10;- Integrate to Poetry">
       <option name="closed" value="true" />
@@ -127,17 +129,55 @@
       <option name="project" value="LOCAL" />
       <updated>1711665723996</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="chore: update README.md">
+      <option name="closed" value="true" />
+      <created>1711668346485</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1711668346485</updated>
+    </task>
+    <task id="LOCAL-00007" summary="chore: update README.md&#10;&#10;Signed-off-by: Justin Xiao &lt;o927416847@gmail.com&gt;">
+      <option name="closed" value="true" />
+      <created>1711668449997</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1711668449997</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fix: fix building failed on railway&#10;&#10;Signed-off-by: Justin Xiao &lt;o927416847@gmail.com&gt;">
+      <option name="closed" value="true" />
+      <created>1713211062073</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1713211062073</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="fix: fix the deployment failed in Zeabur with fixing the Python version number as 3.10.12" />
     <MESSAGE value="fix: fix the deployment failed in Zeabur&#10;&#10;- fix the Python version number as 3.10.12&#10;- Integrate to Poetry" />
     <MESSAGE value="fix: fix the deployment failed in Zeabur&#10;&#10;- fix the Python version number as 3.10.12&#10;- Integrate to Poetry&#10;&#10;Signed-off-by: Justin Xiao &lt;o927416847@gmail.com&gt;" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: fix the deployment failed in Zeabur&#10;&#10;- fix the Python version number as 3.10.12&#10;- Integrate to Poetry&#10;&#10;Signed-off-by: Justin Xiao &lt;o927416847@gmail.com&gt;" />
+    <MESSAGE value="chore: update README.md" />
+    <MESSAGE value="chore: update README.md&#10;&#10;Signed-off-by: Justin Xiao &lt;o927416847@gmail.com&gt;" />
+    <MESSAGE value="fix: fix building failed on railway&#10;&#10;Signed-off-by: Justin Xiao &lt;o927416847@gmail.com&gt;" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: fix building failed on railway&#10;&#10;Signed-off-by: Justin Xiao &lt;o927416847@gmail.com&gt;" />
   </component>
 </project>
