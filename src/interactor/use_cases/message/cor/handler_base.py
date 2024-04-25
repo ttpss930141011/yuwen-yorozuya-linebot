@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List, cast
+from typing import List
 
 from linebot.v3.messaging.models.message import Message
 
@@ -15,10 +15,10 @@ from src.interactor.interfaces.repositories.window_repository import WindowRepos
 class Handler(ABC):
     def __init__(self, container: Container = None):
         self._successor = None
-        self.container = container
-        self.logger = cast(LoggerInterface, container.resolve("logger"))
-        self.agent_repository = cast(AgentExecutorRepositoryInterface, container.resolve("agent_repository"))
-        self.window_repository = cast(WindowRepositoryInterface, container.resolve("window_repository"))
+        self.container: Container = container
+        self.logger: LoggerInterface = container.resolve("logger")
+        self.agent_repository: AgentExecutorRepositoryInterface = container.resolve("agent_repository")
+        self.window_repository: WindowRepositoryInterface = container.resolve("window_repository")
 
     def set_successor(self, successor: "Handler"):
         self._successor = successor

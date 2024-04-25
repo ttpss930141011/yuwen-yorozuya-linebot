@@ -11,6 +11,9 @@ from src.interactor.use_cases.message.create_message_reply import CreateMessageR
 def test_create_message_reply(mocker: mock, fixture_window):
     presenter_mock = mocker.patch.object(EventPresenterInterface, "present")
     presenter_mock.present.return_value = "Test output"
+    logger_mock = mocker.patch.object(LoggerInterface, "log_info")
+    container_mock = mocker.MagicMock()
+    container_mock.resolve.return_value = logger_mock
 
     reply_messages_cor_mock = mocker.patch(
         "src.interactor.use_cases.message.create_message_reply.ReplyMessagesCOR"
@@ -18,17 +21,12 @@ def test_create_message_reply(mocker: mock, fixture_window):
     reply_messages_cor_instance = reply_messages_cor_mock.return_value
     reply_messages_cor_instance.handle.return_value = [TextMessage(text="Test output")]
 
-    repository_mock = mocker.patch(
-        "src.interactor.use_cases.message.create_message_reply.AgentExecutorRepositoryInterface"
-    )
-
     input_dto_validator_mock = mocker.patch(
         "src.interactor.use_cases.message.create_message_reply.EventInputDtoValidator"
     )
-    logger_mock = mocker.patch.object(LoggerInterface, "log_info")
 
-    use_case = CreateMessageReplyUseCase(presenter_mock, repository_mock, logger_mock)
-    input_dto = EventInputDto(window=fixture_window, user_input="Test input")
+    use_case = CreateMessageReplyUseCase(presenter_mock, container_mock)
+    input_dto = EventInputDto(window=fixture_window, user_input="Test input", source_type="Test source")
     result = use_case.execute(input_dto)
 
     input_dto_validator_mock.assert_called_once_with(input_dto.to_dict())
@@ -37,7 +35,7 @@ def test_create_message_reply(mocker: mock, fixture_window):
 
     logger_mock.log_info.assert_called_once_with("Create reply successfully")
 
-    reply_messages_cor_instance.handle.assert_called_once_with(input_dto, repository_mock)
+    reply_messages_cor_instance.handle.assert_called_once_with(input_dto)
 
     output_dto = EventOutputDto(
         window=fixture_window, user_input="Test input", response=[TextMessage(text="Test output")]
