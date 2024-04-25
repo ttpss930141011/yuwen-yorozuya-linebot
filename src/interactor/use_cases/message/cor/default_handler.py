@@ -1,29 +1,41 @@
-from typing import List
-
 from langchain.agents import AgentExecutor
 from linebot.v3.messaging.models import TextMessage
-from linebot.v3.messaging.models.message import Message
 
 from src.interactor.dtos.event_dto import EventInputDto
-from src.interactor.interfaces.repositories.agent_executor_repository import (
-    AgentExecutorRepositoryInterface,
-)
 from src.interactor.use_cases.message.cor.handler_base import Handler
 
 
 class DefaultHandler(Handler):
-    def handle(
-        self,
-        input_dto: EventInputDto,
-        repository: AgentExecutorRepositoryInterface,
-        response: List[Message],
-    ):
+    """
+    The last handler in the chain of responsibility.
+
+    This handler uses the agent executor to process the user input.
+    """
+
+    def _get_agent_executor(self, input_dto: EventInputDto) -> AgentExecutor:
+        """
+        Retrieves the agent executor associated with the current window.
+
+        :param None: This function does not take any parameters.
+        :return: None
+        """
+        window_id = input_dto.window.get("window_id")
+
+        agent_executor = self.agent_repository.get(
+            window_id=window_id,
+        )
+        if agent_executor is None:
+            agent_executor = self.agent_repository.create(window_id=window_id)
+        return agent_executor
+
+    def handle(self, input_dto: EventInputDto):
+        messages = []
         try:
-            agent_executor = self._get_agent_executor(input_dto, repository)
+            agent_executor = self._get_agent_executor(input_dto)
             result = agent_executor.run(input=input_dto.user_input)
-            response.append(TextMessage(text=result))
+            messages.extend([TextMessage(text=result)])
         except Exception as e:
-            print(e)
-            response.append(TextMessage(text="出現錯誤啦！請稍後再試。"))
+            self.logger.error(e)
+            messages.extend([TextMessage(text="Something went wrong! >_<")])
         finally:
-            return response
+            return messages

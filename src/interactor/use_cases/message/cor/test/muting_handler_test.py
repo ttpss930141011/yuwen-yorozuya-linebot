@@ -7,61 +7,55 @@ from src.interactor.use_cases.message.cor.muting_handler import MutingHandler
 
 
 def test_muting_handler_with_fixture_window_with_muting(
-    mocker: mock, fixture_window_with_muting: dict
+        mocker: mock, fixture_window_with_muting: dict
 ):
-    repository_mock = mocker.patch(
-        "src.interactor.use_cases.message.cor.muting_handler.AgentExecutorRepositoryInterface"
-    )
-    response = []
+    container_mock = mocker.MagicMock()
 
     input_dto_mock = EventInputDto(
         window=fixture_window_with_muting,
         user_input="mock user input",
+        source_type="mock source type",
     )
 
-    muting_handler = MutingHandler()
-    muting_handler.handle(input_dto_mock, repository_mock, response)
+    muting_handler = MutingHandler(container_mock)
+    messages = muting_handler.handle(input_dto_mock)
 
     # self._successor.handle is not called
-    assert len(response) == 0
+    assert len(messages) == 0
     assert muting_handler._successor is None
-    assert response == []
+    assert messages == []
 
 
 def test_muting_handler_with_no_successor(mocker: mock, fixture_window: dict):
-    repository_mock = mocker.patch(
-        "src.interactor.use_cases.message.cor.muting_handler.AgentExecutorRepositoryInterface"
-    )
-    response = []
-
     input_dto_mock = EventInputDto(
         window=fixture_window,
         user_input="mock user input",
+        source_type="mock source type",
     )
-
-    muting_handler = MutingHandler()
-    muting_handler.handle(input_dto_mock, repository_mock, response)
+    container_mock = mocker.MagicMock()
+    muting_handler = MutingHandler(container_mock)
+    messages = muting_handler.handle(input_dto_mock)
 
     # self._successor.handle is not called
-    assert len(response) == 1
+    assert len(messages) == 1
     assert muting_handler._successor is None
-    assert response[0] == TextMessage(text="靜悄悄的，什麼都沒有發生。")
+    assert messages[0] == TextMessage(text="Something went wrong! >_<")
 
 
 def test_muting_handler_with_successor(mocker: mock, fixture_window: dict):
-    repository_mock = mocker.patch(
-        "src.interactor.use_cases.message.cor.muting_handler.AgentExecutorRepositoryInterface"
-    )
-    response = []
+
+    container_mock = mocker.MagicMock()
 
     input_dto_mock = EventInputDto(
         window=fixture_window,
         user_input="mock user input",
+        source_type="mock source type",
     )
 
-    muting_handler = MutingHandler(mocker.Mock())
-    muting_handler.handle(input_dto_mock, repository_mock, response)
+    muting_handler = MutingHandler(container_mock)
+    muting_handler.set_successor(mocker.MagicMock())
+    messages = muting_handler.handle(input_dto_mock)
 
     # self._successor.handle is called
-    assert len(response) == 0
+    assert len(messages) == 0
     assert muting_handler._successor.handle.call_count == 1

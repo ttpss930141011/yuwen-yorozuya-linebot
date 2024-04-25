@@ -1,11 +1,10 @@
 """ This module is responsible for creating a new window.
 """
+
+from src.infrastructure.container.container import Container
 from src.interactor.dtos.event_dto import EventInputDto, EventOutputDto
 from src.interactor.interfaces.logger.logger import LoggerInterface
 from src.interactor.interfaces.presenters.message_reply_presenter import EventPresenterInterface
-from src.interactor.interfaces.repositories.agent_executor_repository import (
-    AgentExecutorRepositoryInterface,
-)
 from src.interactor.use_cases.message.cor import ReplyMessagesCOR
 from src.interactor.validations.event_input_validator import EventInputDtoValidator
 
@@ -13,15 +12,10 @@ from src.interactor.validations.event_input_validator import EventInputDtoValida
 class CreateMessageReplyUseCase:
     """This class is responsible for creating a new window."""
 
-    def __init__(
-        self,
-        presenter: EventPresenterInterface,
-        repository: AgentExecutorRepositoryInterface,
-        logger: LoggerInterface,
-    ):
+    def __init__(self, presenter: EventPresenterInterface, container: Container):
         self.presenter = presenter
-        self.repository = repository
-        self.logger = logger
+        self.container = container
+        self.logger: LoggerInterface = container.resolve("logger")
 
     def execute(self, input_dto: EventInputDto):
         """
@@ -39,9 +33,9 @@ class CreateMessageReplyUseCase:
         validator = EventInputDtoValidator(input_dto.to_dict())
         validator.validate()
 
-        reply_messages_cor = ReplyMessagesCOR()
+        reply_messages_cor = ReplyMessagesCOR(self.container)
 
-        response = reply_messages_cor.handle(input_dto, self.repository)
+        response = reply_messages_cor.handle(input_dto)
 
         output_dto = EventOutputDto(
             window=input_dto.window,

@@ -11,14 +11,13 @@ from src.interactor.use_cases.message.cor.handler_base import Handler
 
 
 class AdditionHandler(Handler):
-    def handle(
-        self,
-        input_dto: EventInputDto,
-        repository: AgentExecutorRepositoryInterface,
-        response: List[Message],
-    ):
-        response.append(TextMessage(text="test handler"))
+    def handle(self, input_dto: EventInputDto):
+
+        messages: List[Message] = []
+        messages.extend([TextMessage(text="test handler")])
         if self._successor is not None:
-            return self._successor.handle(input_dto, repository, response)
+            messages.extend(self._successor.handle(input_dto))
         else:
-            response.append(TextMessage(text="靜悄悄的，什麼都沒有發生。"))
+            messages.extend([TextMessage(text="Something went wrong! >_<")])
+
+        return messages

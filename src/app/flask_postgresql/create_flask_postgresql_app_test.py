@@ -5,21 +5,17 @@ from flask import Flask
 from flask.testing import FlaskClient
 
 from src.app.flask_postgresql.configs import Config
-from src.infrastructure.loggers.logger_default import LoggerDefault
 
 with mock.patch("sqlalchemy.create_engine") as mock_create_engine, mock.patch(
-    "langchain.utilities.SerpAPIWrapper"
+        "langchain.utilities.SerpAPIWrapper"
 ) as mock_sessionmaker:
     from .create_flask_postgresql_app import create_flask_postgresql_app
-
-
-logger = LoggerDefault()
 
 
 @pytest.fixture(name="flask_postgresql_app")
 def fixture_flask_postgresql_app():
     """Fixture for flask app with blueprint"""
-    app: Flask = create_flask_postgresql_app(Config, logger)
+    app: Flask = create_flask_postgresql_app(Config)
     app.config.update(
         {
             "TESTING": True,
@@ -56,8 +52,8 @@ def test_request_window(mocker, client_flask_postgresql_app: FlaskClient):
 
 
 def test_request_window_wrong_url_error(
-    mocker,
-    client_flask_postgresql_app,
+        mocker,
+        client_flask_postgresql_app,
 ):
     """Test request example"""
     headers_data = {"X-Line-Signature": "test"}

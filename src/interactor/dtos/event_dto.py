@@ -1,7 +1,6 @@
 """ Module for Events Dtos
 """
 
-
 from dataclasses import asdict, dataclass
 from typing import Dict, List
 
@@ -14,6 +13,7 @@ class EventInputDto:
 
     window: Dict
     user_input: str
+    source_type: str
 
     def to_dict(self):
         """Convert data into dictionary"""

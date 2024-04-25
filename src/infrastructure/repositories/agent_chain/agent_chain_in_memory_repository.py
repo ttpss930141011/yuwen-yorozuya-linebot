@@ -61,7 +61,7 @@ class AgentExecutorInMemoryRepository(AgentExecutorRepositoryInterface):
         agent_language: str,
         temperature: float,
         memory_key: str,
-        tools: list,
+        tools_list: list,
     ) -> OpenAIFunctionsAgent:
         """
         Creates an instance of the OpenAIFunctionsAgent class.
@@ -82,10 +82,10 @@ class AgentExecutorInMemoryRepository(AgentExecutorRepositoryInterface):
             system_message=system_message,
             extra_prompt_messages=[MessagesPlaceholder(variable_name=memory_key), system_language],
         )
-        return OpenAIFunctionsAgent(llm=llm, tools=tools, prompt=prompt)
+        return OpenAIFunctionsAgent(llm=llm, tools=tools_list, prompt=prompt)
 
     def _create_agent_executor(
-        self, agent: OpenAIFunctionsAgent, memory: BaseChatMemory, tools: list
+        self, agent: OpenAIFunctionsAgent, memory: BaseChatMemory, tools_list: list
     ) -> AgentExecutor:
         """
         Creates an agent executor using the provided agent, memory, and other optional arguments.
@@ -100,13 +100,13 @@ class AgentExecutorInMemoryRepository(AgentExecutorRepositoryInterface):
         """
         return AgentExecutor(
             agent=agent,
-            tools=tools,
+            tools=tools_list,
             memory=memory,
             verbose=True,
             max_iterations=3,
         )
 
-    def get(self, window_id: str) -> AgentExecutor:
+    def get(self, window_id: str) -> AgentExecutor | None:
         """Get AgentExecutor by id
 
         :param window_id: str
@@ -150,9 +150,9 @@ class AgentExecutorInMemoryRepository(AgentExecutorRepositoryInterface):
             agent_language=agent_language,
             temperature=temperature,
             memory_key=memory_key,
-            tools=tools,
+            tools_list=tools,
         )
-        agent_executor = self._create_agent_executor(agent=agent, memory=memory, tools=tools)
+        agent_executor = self._create_agent_executor(agent=agent, memory=memory, tools_list=tools)
 
         self._data[window_id] = agent_executor
         return self._data[window_id]
