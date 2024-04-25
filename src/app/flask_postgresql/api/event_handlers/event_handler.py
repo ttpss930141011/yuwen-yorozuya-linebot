@@ -1,38 +1,44 @@
 """ This module implements the event handler for text message events.
 """
 from abc import abstractmethod
-from typing import Dict
+from typing import Dict, cast
 
 from linebot.v3.webhooks import MessageEvent
 
 from src.app.flask_postgresql.configs import Config
 from src.app.flask_postgresql.interfaces.event_handler_interface import EventHandlerInterface
 from src.app.flask_postgresql.presenters.window_presenter import WindowPresenter
-from src.infrastructure.repositories.agent_chain.agent_chain_in_memory_repository import (
-    AgentExecutorInMemoryRepository,
-)
-from src.infrastructure.repositories.window.window_postgresql_repository import (
-    WindowPostgresqlRepository,
-)
+from src.infrastructure.container.container import Container
 from src.interactor.dtos.event_dto import EventInputDto
 from src.interactor.dtos.window_dtos import CreateWindowInputDto, GetWindowInputDto
 from src.interactor.interfaces.logger.logger import LoggerInterface
+from src.interactor.interfaces.repositories.agent_executor_repository import AgentExecutorRepositoryInterface
+from src.interactor.interfaces.repositories.window_repository import WindowRepositoryInterface
 from src.interactor.use_cases.window.create_window import CreateWindowUseCase
 from src.interactor.use_cases.window.get_window import GetWindowUseCase
 
 
 class EventHandler(EventHandlerInterface):
-    def __init__(self, logger: LoggerInterface, agent_repository: AgentExecutorInMemoryRepository):
-        self.logger = logger
-        self.agent_repository = agent_repository
-        self.input_dto: EventInputDto
+    def __init__(self, container: Container):
+        self.container = container
+        self.logger = cast(LoggerInterface, container.resolve("logger"))
+        self.agent_repository = cast(AgentExecutorRepositoryInterface, container.resolve("agent_repository"))
+        self.window_repository = cast(WindowRepositoryInterface, container.resolve("window_repository"))
+        self.input_dto = None
+        self.event = None
 
     def get_event_info(self, event: MessageEvent):
-        if event.source.type == "user":
+        """
+        Retrieves the information of an event.
+        """
+        self.event = event
+        source_type = event.source.type
+
+        if source_type == "user":
             window_id = event.source.user_id
-        elif event.source.type == "group":
+        elif source_type == "group":
             window_id = event.source.group_id
-        elif event.source.type == "room":
+        elif source_type == "room":
             window_id = event.source.room_id
         else:
             raise ValueError("Invalid event source type")
@@ -45,6 +51,7 @@ class EventHandler(EventHandlerInterface):
         self.input_dto = EventInputDto(
             window=self.get_window_info(window_id=window_id),
             user_input=user_input,
+            source_type=source_type,
         )
 
     def get_window_info(self, window_id: str) -> Dict:
@@ -66,9 +73,8 @@ class EventHandler(EventHandlerInterface):
 
         :return: The result of executing the use case.
         """
-        repository = WindowPostgresqlRepository()
         presenter = WindowPresenter()
-        use_case = GetWindowUseCase(presenter=presenter, repository=repository, logger=self.logger)
+        use_case = GetWindowUseCase(presenter=presenter, repository=self.window_repository, logger=self.logger)
         get_window_input_dto = GetWindowInputDto(window_id)
         result = use_case.execute(get_window_input_dto)
         return result
@@ -80,7 +86,6 @@ class EventHandler(EventHandlerInterface):
         Returns:
             The result of the create window use case execution.
         """
-        repository = WindowPostgresqlRepository()
         presenter = WindowPresenter()
         create_window_input_dto = CreateWindowInputDto(
             window_id=window_id,
@@ -90,7 +95,7 @@ class EventHandler(EventHandlerInterface):
             temperature=0,
         )
         use_case = CreateWindowUseCase(
-            presenter=presenter, repository=repository, logger=self.logger
+            presenter=presenter, repository=self.window_repository, logger=self.logger
         )
         result = use_case.execute(create_window_input_dto)
         return result

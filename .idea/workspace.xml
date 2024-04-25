@@ -5,13 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7ffab47-0e27-47fc-905b-6e3c7fe90ee2" name="Changes" comment="fix: fix building failed on railway&#10;&#10;Signed-off-by: Justin Xiao &lt;o927416847@gmail.com&gt;">
+      <change afterPath="$PROJECT_DIR$/src/app/flask_postgresql/api/container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/infrastructure/container/container.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/interactor/use_cases/message/cor/viki_handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024_3_28__01_08__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024_3_28__01_08__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/flask_postgresql/api/blueprints/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/flask_postgresql/api/blueprints/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/flask_postgresql/api/blueprints/callback.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/flask_postgresql/api/blueprints/callback.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/flask_postgresql/api/error_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/flask_postgresql/api/error_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/flask_postgresql/api/event_handlers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/flask_postgresql/api/event_handlers/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/flask_postgresql/api/event_handlers/event_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/flask_postgresql/api/event_handlers/event_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/flask_postgresql/api/event_handlers/text_event_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/flask_postgresql/api/event_handlers/text_event_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/flask_postgresql/api/response.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/flask_postgresql/api/response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/flask_postgresql/create_flask_postgresql_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/flask_postgresql/create_flask_postgresql_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/infrastructure/repositories/agent_chain/agent_chain_in_memory_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/repositories/agent_chain/agent_chain_in_memory_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interactor/dtos/event_dto.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/interactor/dtos/event_dto.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interactor/use_cases/message/cor/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/interactor/use_cases/message/cor/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interactor/use_cases/message/cor/addition_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/interactor/use_cases/message/cor/addition_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interactor/use_cases/message/cor/default_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/interactor/use_cases/message/cor/default_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interactor/use_cases/message/cor/handler_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/interactor/use_cases/message/cor/handler_base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interactor/use_cases/message/cor/muting_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/interactor/use_cases/message/cor/muting_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interactor/use_cases/message/create_message_reply.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/interactor/use_cases/message/create_message_reply.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interactor/validations/event_input_validator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/interactor/validations/event_input_validator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
     <envs>
@@ -25,6 +54,19 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="main" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
@@ -32,6 +74,13 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="SIGN_OFF_COMMIT" value="true" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -50,23 +99,29 @@
     <option name="openDirectoriesWithSingleClick" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "development",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/o9274/Desktop/Code/AI/yuwen-yorozuya-linebot/src/interactor/use_cases/message/cor",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Color Scheme Font",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\o9274\Desktop\Code\AI\yuwen-yorozuya-linebot\src\interactor\use_cases\message\cor" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -88,6 +143,12 @@
       <workItem from="1711962644346" duration="1126000" />
       <workItem from="1712043117290" duration="18000" />
       <workItem from="1713207352392" duration="1161000" />
+      <workItem from="1713317193707" duration="311000" />
+      <workItem from="1713560697601" duration="1375000" />
+      <workItem from="1713916577660" duration="352000" />
+      <workItem from="1713935854023" duration="3036000" />
+      <workItem from="1713938914481" duration="11564000" />
+      <workItem from="1713985063512" duration="17145000" />
     </task>
     <task id="LOCAL-00001" summary="fix: fix the deployment failed in Zeabur&#10;&#10;- fix the Python version number as 3.10.12&#10;- Integrate to Poetry">
       <option name="closed" value="true" />

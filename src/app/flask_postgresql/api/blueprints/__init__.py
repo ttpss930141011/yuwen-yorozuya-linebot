@@ -4,7 +4,7 @@ from .callback import blueprint as callback_blueprint
 from .main import blueprint as main_blueprint
 
 
-def setup_blueprints(app: Flask) -> None:
+def setup_blueprints(app: Flask) -> Flask:
     """
     Register the necessary blueprints for the Flask app.
 
@@ -12,7 +12,7 @@ def setup_blueprints(app: Flask) -> None:
         app (Flask): The Flask app instance.
 
     Returns:
-        None: This function does not return anything.
+        None: The Flask app instance with the blueprints registered.
     """
     app.register_blueprint(callback_blueprint)
     app.register_blueprint(main_blueprint)

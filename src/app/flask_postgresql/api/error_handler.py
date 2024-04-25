@@ -31,12 +31,12 @@ def format_marshmallow_validation_error(errors: Dict):
     return errors_message
 
 
-def setup_error_handler(app: Flask) -> None:
+def setup_error_handler(app: Flask) -> Flask:
     """
     Function that will register all the specified error handlers for the app
     """
 
-    logger: LoggerInterface = app.config["logger"]
+    logger: LoggerInterface = app.config["container"].resolve("logger")
 
     def error_handler(error):
         logger.log_exception("exception of type {} occurred".format(type(error)))

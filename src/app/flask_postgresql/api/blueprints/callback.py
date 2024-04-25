@@ -13,7 +13,7 @@ blueprint = Blueprint("callback", __name__)
 @blueprint.route("/callback", methods=["POST"])
 def callback_blueprint():
     """Function printing python version."""
-    logger: LoggerInterface = current_app.config["logger"]
+    logger: LoggerInterface = current_app.config["container"].resolve("logger")
     signature = request.headers["X-Line-Signature"]
     body = request.get_data(as_text=True)
 
