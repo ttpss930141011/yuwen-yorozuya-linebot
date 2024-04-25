@@ -1,7 +1,6 @@
 """ Defines the validator for the create window input data.
 """
 
-
 from typing import Dict
 
 from src.interactor.validations.base_input_validator import BaseInputValidator
@@ -28,6 +27,7 @@ class EventInputDtoValidator(BaseInputValidator):
                 },
             },
             "user_input": {"type": "string", "required": True},
+            "source_type": {"type": "string", "required": True},
         }
 
     def validate(self) -> None:

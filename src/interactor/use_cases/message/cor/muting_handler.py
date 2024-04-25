@@ -4,22 +4,23 @@ from linebot.v3.messaging.models import TextMessage
 from linebot.v3.messaging.models.message import Message
 
 from src.interactor.dtos.event_dto import EventInputDto
-from src.interactor.interfaces.repositories.agent_executor_repository import (
-    AgentExecutorRepositoryInterface,
-)
 from src.interactor.use_cases.message.cor.handler_base import Handler
 
 
 class MutingHandler(Handler):
-    def handle(
-        self,
-        input_dto: EventInputDto,
-        repository: AgentExecutorRepositoryInterface,
-        response: List[Message],
-    ):
+
+    def handle(self, input_dto: EventInputDto):
+        """
+        Check if the window is currently muting. If it is, return an empty list.
+        """
+
+        messages: List[Message] = []
+
         if input_dto.window.get("is_muting") is True:
-            return response
+            return messages
         elif self._successor is not None:
-            return self._successor.handle(input_dto, repository, response)
+            messages.extend(self._successor.handle(input_dto))
         else:
-            response.append(TextMessage(text="靜悄悄的，什麼都沒有發生。"))
+            messages.extend([TextMessage(text="Something went wrong! >_<")])
+
+        return messages

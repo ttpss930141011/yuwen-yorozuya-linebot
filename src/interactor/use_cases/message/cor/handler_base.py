@@ -1,47 +1,28 @@
 from abc import ABC, abstractmethod
-from typing import List, Type
+from typing import List, cast
 
-from langchain.agents import AgentExecutor
 from linebot.v3.messaging.models.message import Message
 
+from src.infrastructure.container.container import Container
 from src.interactor.dtos.event_dto import EventInputDto
+from src.interactor.interfaces.logger.logger import LoggerInterface
 from src.interactor.interfaces.repositories.agent_executor_repository import (
     AgentExecutorRepositoryInterface,
 )
+from src.interactor.interfaces.repositories.window_repository import WindowRepositoryInterface
 
 
 class Handler(ABC):
-    def __init__(self, successor: Type["Handler"] = None):
+    def __init__(self, container: Container = None):
+        self._successor = None
+        self.container = container
+        self.logger = cast(LoggerInterface, container.resolve("logger"))
+        self.agent_repository = cast(AgentExecutorRepositoryInterface, container.resolve("agent_repository"))
+        self.window_repository = cast(WindowRepositoryInterface, container.resolve("window_repository"))
+
+    def set_successor(self, successor: "Handler"):
         self._successor = successor
 
-    def _get_agent_executor(
-        self,
-        input_dto: EventInputDto,
-        repository: AgentExecutorRepositoryInterface,
-    ) -> AgentExecutor:
-        """
-        Retrieves the agent executor associated with the current window.
-
-        :param None: This function does not take any parameters.
-        :return: None
-        """
-
-        window_id = input_dto.window.get("window_id")
-
-        agent_executor = repository.get(
-            window_id=window_id,
-        )
-        if agent_executor is None:
-            agent_executor = repository.create(
-                window_id=window_id,
-            )
-        return agent_executor
-
     @abstractmethod
-    def handle(
-        self,
-        input_dto: EventInputDto,
-        repository: AgentExecutorRepositoryInterface,
-        response: List[Message],
-    ) -> List[Message]:
+    def handle(self, input_dto: EventInputDto, ) -> List[Message]:
         pass
